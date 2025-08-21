@@ -1,0 +1,8 @@
+﻿# Ignore folders
+/.vs
+/bin
+/obj
+
+# Ignore files
+appsettings.Development.json
+AuthService.csproj.user

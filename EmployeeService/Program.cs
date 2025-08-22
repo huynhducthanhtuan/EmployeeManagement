@@ -26,7 +26,7 @@ app.UseSwagger(c =>
 app.UseSwaggerUI(c =>
 {
     c.SwaggerEndpoint("/api/employee-service/swagger/v1/swagger.json", "EmployeeService API v1");
-    c.RoutePrefix = "api/employee-service/swagger";
+    // c.RoutePrefix = "api/employee-service/swagger";
 });
 
 app.UseHttpsRedirection();

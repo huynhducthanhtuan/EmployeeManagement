@@ -1,0 +1,20 @@
+version: "3"
+
+services:
+  authservice:
+    build:
+      context: ./AuthService
+      dockerfile: Dockerfile
+    image: authservice:1.0
+    container_name: authservice
+    ports:
+      - "5000:8080"
+
+  employeeservice:
+    build:
+      context: ./EmployeeService
+      dockerfile: Dockerfile
+    image: employeeservice:1.0
+    container_name: employeeservice
+    ports:
+      - "5001:8080"

@@ -1,3 +1,5 @@
+using Microsoft.OpenApi.Models;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -10,8 +12,21 @@ builder.Services.AddSwaggerGen();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-app.UseSwagger();
-app.UseSwaggerUI();
+app.UsePathBase("/api/auth-service");
+app.UseSwagger(c =>
+{
+    c.PreSerializeFilters.Add((swagger, req) =>
+    {
+        swagger.Servers = new List<OpenApiServer>
+        {
+            new OpenApiServer { Url = $"{req.Scheme}://{req.Host.Value}/api/auth-service" }
+        };
+    });
+});
+app.UseSwaggerUI(c =>
+{
+    c.SwaggerEndpoint("/api/auth-service/swagger/v1/swagger.json", "AuthService API v1");
+});
 
 app.UseHttpsRedirection();
 

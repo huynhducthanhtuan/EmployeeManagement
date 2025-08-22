@@ -21,7 +21,7 @@ ssh -o StrictHostKeyChecking=accept-new -i "my-key.pem" ubuntu@<EC2_PUBLIC_IP>
 Clone repository:
 
 ```bash
-git https://github.com/huynhducthanhtuan/EmployeeManagement.git
+git clone https://github.com/huynhducthanhtuan/EmployeeManagement.git
 ```
 
 Change directory to this folder:

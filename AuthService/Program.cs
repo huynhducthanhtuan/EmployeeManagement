@@ -1,11 +1,21 @@
+using Amazon;
+using Amazon.CognitoIdentityProvider;
+using AuthService.DTO;
+using AuthService.Interfaces;
+using AuthService.Services;
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// AWS Cognito config
+builder.Services.Configure<CognitoOptions>(builder.Configuration.GetSection("Cognito"));
+var region = RegionEndpoint.GetBySystemName(builder.Configuration["AWS:Region"] ?? "ap-southeast-1");
+builder.Services.AddSingleton<IAmazonCognitoIdentityProvider>(_ => new AmazonCognitoIdentityProviderClient(region));
+
 // Add services to the container.
+builder.Services.AddScoped<ICognitoAuthService, CognitoAuthService>();
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -26,7 +36,6 @@ app.UseSwagger(c =>
 app.UseSwaggerUI(c =>
 {
     c.SwaggerEndpoint("/api/auth-service/swagger/v1/swagger.json", "AuthService API v1");
-    // c.RoutePrefix = "api/auth-service/swagger";
 });
 
 app.UseHttpsRedirection();

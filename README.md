@@ -1,4 +1,5 @@
 # 🧑‍💼 Employee Management System
+
 ### An .NET Core Web API Microservices Project
 
 ## 🔐 AuthService
@@ -7,6 +8,7 @@
 - Swagger UI: [`http://<EC2_PUBLIC_IP>:5000/api/auth-service/swagger/index.html`](http://<EC2_PUBLIC_IP>:5000/api/auth-service/swagger/index.html)
 - Auth Mechanism: AWS Cognito
 - Infrastructure: AWS EC2
+- Image Registry: Docker Hub
 
 ## 👥 EmployeeService
 
@@ -14,6 +16,7 @@
 - Swagger UI: [`http://<EC2_PUBLIC_IP>:5001/api/employee-service/swagger/index.html`](http://<EC2_PUBLIC_IP>:5001/api/employee-service/swagger/index.html)
 - Database: AWS RDS SQL Server
 - Infrastructure: AWS EC2
+- Image Registry: Docker Hub
 
 ## 📡 Connect to AWS EC2
 

@@ -4,10 +4,15 @@ on:
   push:
     branches:
       - develop
+    paths-ignore:
+      - "README.md"
 
 jobs:
   build-and-push-dockerhub:
     runs-on: ubuntu-latest
+    env:
+      DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+      DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
 
     steps:
       - name: Checkout repository

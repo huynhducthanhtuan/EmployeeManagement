@@ -38,7 +38,7 @@ namespace AuthService.Services
                 // You can also auto-confirm via admin if your business rules allow.
                 if ((bool)!resp.UserConfirmed)
                 {
-                    // no-op here; client should confirm via code sent to email
+                    // no-op here; client should confirm via code sent to email.
                 }
             }
             catch (UsernameExistsException)

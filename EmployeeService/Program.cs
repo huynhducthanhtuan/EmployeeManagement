@@ -1,11 +1,29 @@
+using System.Reflection;
+using EmployeeService.Data;
+using EmployeeService.Interfaces;
+using EmployeeService.Profiles;
+using EmployeeService.Repositories;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddScoped(typeof(ISqlRepository<>), typeof(SqlRepository<>));
+builder.Services.AddScoped(typeof(IEmployeeService), typeof(EmployeeService.Services.EmployeeService));
+
+builder.Services.AddAutoMapper(configuration =>
+{
+    configuration.AddProfile<DomainProfiles>();
+});
+
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
+);
+
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -26,7 +44,6 @@ app.UseSwagger(c =>
 app.UseSwaggerUI(c =>
 {
     c.SwaggerEndpoint("/api/employee-service/swagger/v1/swagger.json", "EmployeeService API v1");
-    // c.RoutePrefix = "api/employee-service/swagger";
 });
 
 app.UseHttpsRedirection();

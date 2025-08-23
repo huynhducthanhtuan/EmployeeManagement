@@ -1,4 +1,5 @@
-# 🧑‍💼 Employee Management System - API Microservices Project
+# 🧑‍💼 Employee Management System
+### An .NET Core Web API Microservices Project
 
 ## 🔐 AuthService
 

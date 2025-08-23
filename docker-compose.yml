@@ -5,7 +5,7 @@ services:
     build:
       context: ./AuthService
       dockerfile: Dockerfile
-    image: authservice:1.0
+    image: hdthanhtuan/authservice:latest
     container_name: authservice
     ports:
       - "5000:8080"
@@ -14,7 +14,7 @@ services:
     build:
       context: ./EmployeeService
       dockerfile: Dockerfile
-    image: employeeservice:1.0
+    image: hdthanhtuan/employeeservice:latest
     container_name: employeeservice
     ports:
       - "5001:8080"

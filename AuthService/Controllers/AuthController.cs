@@ -20,7 +20,7 @@ namespace AuthService.Controllers
         }
 
         [HttpPost("Register")]
-        public async Task<IActionResult> Register([FromBody] RegisterRequest request, CancellationToken cancellationToken)
+        public async Task<IActionResult> Register([FromBody] RegisterRequest request)
         {
             try
             {
@@ -35,7 +35,7 @@ namespace AuthService.Controllers
         }
 
         [HttpPost("Register/Confirm")]
-        public async Task<IActionResult> ConfirmRegister([FromBody] RegisterConfirmation request, CancellationToken cancellationToken)
+        public async Task<IActionResult> ConfirmRegister([FromBody] RegisterConfirmation request)
         {
             try
             {
@@ -50,7 +50,7 @@ namespace AuthService.Controllers
         }
 
         [HttpPost("Login")]
-        public async Task<IActionResult> Login([FromBody] LoginRequest request, CancellationToken cancellationToken)
+        public async Task<IActionResult> Login([FromBody] LoginRequest request)
         {
             try
             {

@@ -6,7 +6,7 @@
 
 - Base URL: [`http://<EC2_PUBLIC_IP>:5000/api/auth-service`](http://<EC2_PUBLIC_IP>:5000/api/auth-service)
 - Swagger UI: [`http://<EC2_PUBLIC_IP>:5000/api/auth-service/swagger/index.html`](http://<EC2_PUBLIC_IP>:5000/api/auth-service/swagger/index.html)
-- Auth Mechanism: AWS Cognito
+- Auth Mechanism: AWS Cognito (User Pool, App Client)
 - Infrastructure: AWS EC2
 - Image Registry: Docker Hub
 

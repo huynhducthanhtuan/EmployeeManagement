@@ -1,3 +1,4 @@
+using System.Reflection;
 using Amazon;
 using Amazon.CognitoIdentityProvider;
 using AuthService.DTO;
@@ -14,6 +15,8 @@ builder.Services.AddSingleton<IAmazonCognitoIdentityProvider>(_ => new AmazonCog
 
 // Add services to the container.
 builder.Services.AddScoped<ICognitoAuthService, CognitoAuthService>();
+
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();

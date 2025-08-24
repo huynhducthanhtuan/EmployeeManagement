@@ -34,6 +34,21 @@ namespace AuthService.Controllers
             }
         }
 
+        [HttpPost("Register/Confirm")]
+        public async Task<IActionResult> ConfirmRegister([FromBody] RegisterConfirmation request, CancellationToken cancellationToken)
+        {
+            try
+            {
+                var command = new ConfirmRegisterCommand() { RegisterConfirmation = request };
+                var result = await _mediator.Send(command);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
         [HttpPost("Login")]
         public async Task<IActionResult> Login([FromBody] LoginRequest request, CancellationToken cancellationToken)
         {

@@ -1,6 +1,7 @@
 ﻿using Amazon.CognitoIdentityProvider;
 using Amazon.CognitoIdentityProvider.Model;
 using AuthService.DTO;
+using AuthService.Helpers;
 using AuthService.Interfaces;
 using Microsoft.Extensions.Options;
 
@@ -17,29 +18,28 @@ namespace AuthService.Services
             _cognitoOptions = cognitoOptions.Value;
         }
 
-        public async Task RegisterAsync(RegisterRequest request, CancellationToken cancellationToken = default)
+        public async Task<bool> RegisterAsync(RegisterRequest request, CancellationToken cancellationToken = default)
         {
-            // Username may be same as email if you configured it that way
+            var secretHash = CognitoSecretHashHelper.GenerateSecretHash(request.Email, _cognitoOptions.ClientId, _cognitoOptions.ClientSecret);
             var signUp = new SignUpRequest
             {
                 ClientId = _cognitoOptions.ClientId,
-                Username = request.Username,
+                Username = request.Email, // Use email for username
                 Password = request.Password,
+                SecretHash = secretHash,
                 UserAttributes = [
-                    new AttributeType { Name = "email", Value = request.Email }
+                    new AttributeType { Name = "email", Value = request.Email },
+                    new AttributeType { Name = "name", Value = request.Name },
+                    new AttributeType { Name = "phone_number", Value = request.PhoneNumber },
+                    new AttributeType { Name = "birthdate", Value = request.Birthdate },
+                    new AttributeType { Name = "gender", Value = request.Gender }
                 ]
             };
 
             try
             {
-                var resp = await _cognito.SignUpAsync(signUp, cancellationToken);
-
-                // If your pool requires confirmation, client must call ConfirmSignUp separately.
-                // You can also auto-confirm via admin if your business rules allow.
-                if ((bool)!resp.UserConfirmed)
-                {
-                    // no-op here; client should confirm via code sent to email.
-                }
+                var response = await _cognito.SignUpAsync(signUp, cancellationToken);
+                return response.HttpStatusCode == System.Net.HttpStatusCode.OK;
             }
             catch (UsernameExistsException)
             {
@@ -55,28 +55,41 @@ namespace AuthService.Services
             }
         }
 
+        public async Task<bool> ConfirmRegisterAsync(RegisterConfirmation request, CancellationToken cancellationToken = default)
+        {
+            var provider = new AmazonCognitoIdentityProviderClient();
+            var secretHash = CognitoSecretHashHelper.GenerateSecretHash(request.Email, _cognitoOptions.ClientId, _cognitoOptions.ClientSecret);
+            
+            var confirmRequest = new ConfirmSignUpRequest
+            {
+                ClientId = _cognitoOptions.ClientId,
+                Username = request.Email,
+                ConfirmationCode = request.ConfirmationCode,
+                SecretHash = secretHash
+            };
+
+            var response = await provider.ConfirmSignUpAsync(confirmRequest);
+            return response.HttpStatusCode == System.Net.HttpStatusCode.OK;
+        }
+
         public async Task<AuthResponse> LoginAsync(LoginRequest request, CancellationToken cancellationToken = default)
         {
-            var authReq = new AdminInitiateAuthRequest
+            var secretHash = CognitoSecretHashHelper.GenerateSecretHash(request.Email, _cognitoOptions.ClientId, _cognitoOptions.ClientSecret);
+            var authReq = new InitiateAuthRequest
             {
-                AuthFlow = AuthFlowType.ADMIN_USER_PASSWORD_AUTH,
-                UserPoolId = _cognitoOptions.UserPoolId,
+                AuthFlow = AuthFlowType.USER_PASSWORD_AUTH,
                 ClientId = _cognitoOptions.ClientId,
-                AuthParameters =
+                AuthParameters = new Dictionary<string, string>
                 {
-                    ["USERNAME"] = request.Username,
-                    ["PASSWORD"] = request.Password
+                    { "USERNAME", request.Email },
+                    { "PASSWORD", request.Password },
+                    { "SECRET_HASH", secretHash }
                 }
             };
 
             try
             {
-                var authResp = await _cognito.AdminInitiateAuthAsync(authReq, cancellationToken);
-                if (authResp.ChallengeName == ChallengeNameType.NEW_PASSWORD_REQUIRED)
-                {
-                    throw new InvalidOperationException("User must set a new password before login (NEW_PASSWORD_REQUIRED).");
-                }
-
+                var authResp = await _cognito.InitiateAuthAsync(authReq, cancellationToken);
                 var result = authResp.AuthenticationResult;
                 return new AuthResponse
                 {

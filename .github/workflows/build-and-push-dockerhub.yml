@@ -10,10 +10,6 @@ on:
 jobs:
   build-and-push-dockerhub:
     runs-on: ubuntu-latest
-    env:
-      DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
-      DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
-      GITHUB_SHA: ${{ github.sha }}
 
     steps:
       - name: Checkout repository
@@ -25,8 +21,8 @@ jobs:
       - name: Login to Docker Hub
         uses: docker/login-action@v2
         with:
-          username: $DOCKERHUB_USERNAME
-          password: $DOCKERHUB_TOKEN
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Build & Push AuthService
         uses: docker/build-push-action@v5
@@ -34,8 +30,8 @@ jobs:
           context: ./AuthService
           push: true
           tags: |
-            $DOCKERHUB_USERNAME/authservice:latest
-            $DOCKERHUB_USERNAME/authservice:$GITHUB_SHA
+            ${{ secrets.DOCKERHUB_USERNAME }}/authservice:latest
+            ${{ secrets.DOCKERHUB_USERNAME }}/authservice:$GITHUB_SHA
 
       - name: Build & Push EmployeeService
         uses: docker/build-push-action@v5
@@ -43,5 +39,5 @@ jobs:
           context: ./EmployeeService
           push: true
           tags: |
-            $DOCKERHUB_USERNAME/employeeservice:latest
-            $DOCKERHUB_USERNAME/employeeservice:$GITHUB_SHA
+            ${{ secrets.DOCKERHUB_USERNAME }}/employeeservice:latest
+            ${{ secrets.DOCKERHUB_USERNAME }}/employeeservice:${{ github.sha }}

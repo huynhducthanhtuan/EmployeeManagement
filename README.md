@@ -63,7 +63,14 @@
   "Statement": [
     {
       "Effect": "Allow",
-      "Action": ["cognito-idp:AdminGetUser", "cognito-idp:ListUsers"],
+      "Action": [
+        "cognito-idp:ListUsers",
+        "cognito-idp:AdminGetUser",
+        "cognito-idp:AdminDeleteUser",
+        "cognito-idp:AdminAddUserToGroup",
+        "cognito-idp:AdminRemoveUserFromGroup",
+        "cognito-idp:AdminListGroupsForUser"
+      ],
       "Resource": "*"
     }
   ]

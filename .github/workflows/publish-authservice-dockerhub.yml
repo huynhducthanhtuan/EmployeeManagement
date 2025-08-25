@@ -1,15 +1,18 @@
-name: Build and Push Docker Images To Docker Hub
+name: Build & Push AuthService iamge to Docker Hub
 
 on:
   push:
     branches:
       - develop
-    paths-ignore:
-      - "README.md"
+    paths:
+      - "AuthService/**"
 
 jobs:
   build-and-push-dockerhub:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: AuthService
 
     steps:
       - name: Checkout repository
@@ -32,12 +35,3 @@ jobs:
           tags: |
             ${{ secrets.DOCKERHUB_USERNAME }}/authservice:latest
             ${{ secrets.DOCKERHUB_USERNAME }}/authservice:${{ github.sha }}
-
-      - name: Build & Push EmployeeService
-        uses: docker/build-push-action@v5
-        with:
-          context: ./EmployeeService
-          push: true
-          tags: |
-            ${{ secrets.DOCKERHUB_USERNAME }}/employeeservice:latest
-            ${{ secrets.DOCKERHUB_USERNAME }}/employeeservice:${{ github.sha }}

@@ -18,6 +18,95 @@
 - Infrastructure: AWS EC2
 - Image Registry: Docker Hub
 
+## ⚙️ AWS Setup Instructions
+
+### 1. Create AWS RDS SQL Server Database
+
+- Create AWS RDS SQL Server database
+- Get **DatabaseServerEndpoint**, **DatabasePort**, **DatabaseName** (must create database to get this info), **UserId**, **UserPassword**
+- **Note:** Update the following in `./EmployeeService/appsettings.json`:
+
+```json
+"ConnectionStrings": {
+    "DefaultConnection": "Server=<DatabaseServerEndpoint>,<DatabasePort>;Database=<DatabaseName>;User Id=<UserId>;Password=<UserPassword>;Encrypt=True;TrustServerCertificate=True;"
+}
+```
+
+### 2. AWS Cognito Setup
+
+#### a. Create User Pool
+
+- Create a User Pool in AWS Cognito
+- Get **UserPoolId**
+
+#### b. Create App Client for this User Pool
+
+- Create App Client
+- Get **ClientID** and **ClientSecret**
+- **Note:** Update the following in `./AuthService/appsettings.json`:
+
+```json
+"Cognito": {
+    "UserPoolId": "UserPoolId",
+    "ClientId": "ClientId",
+    "ClientSecret": "ClientSecret"
+}
+```
+
+### 3. Create IAM Policy
+
+- Create IAM policy named `CognitoAdminAccessPolicy`:
+
+```json
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": ["cognito-idp:AdminGetUser", "cognito-idp:ListUsers"],
+      "Resource": "*"
+    }
+  ]
+}
+```
+
+### 4. Create IAM User and Assign Policy
+
+- Create IAM user
+- Attach `CognitoAdminAccessPolicy` to this user
+- Create user access
+- Get **AccessKey** and **AccessSecret**
+- **Note:** Update the following in `./AuthService/appsettings.json`:
+
+```json
+"Cognito": {
+    "AccessKey": "AccessKey",
+    "SecretKey": "SecretKey"
+}
+```
+
+### 5. Get AWS Region
+
+- Determine the AWS region where resources will be deployed
+- Example: `us-east-1`
+- **Note:** Update the following in `./AuthService/appsettings.json`:
+
+```json
+"AWS": {
+    "Region": "AWSRegion"
+}
+```
+
+**Common AWS Regions:**
+
+| Region Code      | Location           |
+| ---------------- | ------------------ |
+| `us-east-1`      | N. Virginia, USA   |
+| `us-west-1`      | N. California, USA |
+| `ap-southeast-1` | Singapore          |
+| `ap-northeast-1` | Tokyo, Japan       |
+| ...              | ...                |
+
 ## 📡 Connect to AWS EC2
 
 ```bash

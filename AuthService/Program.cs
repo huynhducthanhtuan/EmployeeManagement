@@ -14,7 +14,7 @@ builder.Services.Configure<CognitoOptions>(builder.Configuration.GetSection("Cog
 builder.Services.AddSingleton<IAmazonCognitoIdentityProvider>(_ =>
     new AmazonCognitoIdentityProviderClient(RegionEndpoint.GetBySystemName(builder.Configuration["AWS:Region"])));
 
-// Add services to the container.
+// Add services to the container
 builder.Services.AddScoped<ICognitoAuthService, CognitoAuthService>();
 
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
@@ -25,7 +25,7 @@ builder.Services.AddSwaggerDocumentation(builder.Configuration, "Auth API", "v1"
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// Configure the HTTP request pipeline
 app.UsePathBase("/api/auth-service");
 app.UseSwagger(c =>
 {

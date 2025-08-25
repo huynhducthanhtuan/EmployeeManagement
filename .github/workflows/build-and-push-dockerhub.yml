@@ -31,7 +31,7 @@ jobs:
           push: true
           tags: |
             ${{ secrets.DOCKERHUB_USERNAME }}/authservice:latest
-            ${{ secrets.DOCKERHUB_USERNAME }}/authservice:$GITHUB_SHA
+            ${{ secrets.DOCKERHUB_USERNAME }}/authservice:${{ github.sha }}
 
       - name: Build & Push EmployeeService
         uses: docker/build-push-action@v5

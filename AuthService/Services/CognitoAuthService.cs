@@ -20,7 +20,7 @@ namespace AuthService.Services
             _cognito = cognito;
             _cognitoOptions = cognitoOptions.Value;
             _cognitoAdmin = new AmazonCognitoIdentityProviderClient(
-                new BasicAWSCredentials(_cognitoOptions.AccessKey, _cognitoOptions.SecretKey), 
+                new BasicAWSCredentials(_cognitoOptions.AccessKey, _cognitoOptions.SecretKey),
                 RegionEndpoint.APSoutheast1
             );
         }
@@ -48,7 +48,7 @@ namespace AuthService.Services
                 var response = await _cognito.SignUpAsync(signUp, cancellationToken);
                 if (response.HttpStatusCode == System.Net.HttpStatusCode.OK)
                 {
-                    // After register sucess -> grant user to "Employee" group
+                    // After register sucess -> grant user to Employee group
                     var addUserReq = new AdminAddUserToGroupRequest
                     {
                         GroupName = "Employee",
@@ -81,7 +81,7 @@ namespace AuthService.Services
         {
             var provider = new AmazonCognitoIdentityProviderClient();
             var secretHash = CognitoSecretHashHelper.GenerateSecretHash(request.Email, _cognitoOptions.ClientId, _cognitoOptions.ClientSecret);
-            
+
             var confirmRequest = new ConfirmSignUpRequest
             {
                 ClientId = _cognitoOptions.ClientId,

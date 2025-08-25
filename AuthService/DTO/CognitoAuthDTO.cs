@@ -30,4 +30,21 @@
         public int ExpiresIn { get; set; }
         public string TokenType { get; set; } = "Bearer";
     }
+
+    public class UserDTO
+    {
+        // Attributes from AWS Cognito (Temporarily not in use)
+        //public string Username { get; set; }
+        //public string? Status { get; set; }
+        //public bool Enabled { get; set; }
+        //public DateTime? UserCreateDate { get; set; }
+        //public DateTime? UserLastModifiedDate { get; set; }
+
+        // Attributes from register
+        public string? Email { get; set; }
+        public string? Name { get; set; }
+        public string? PhoneNumber { get; set; }
+        public string? Birthdate { get; set; }
+        public string? Gender { get; set; }
+    }
 }

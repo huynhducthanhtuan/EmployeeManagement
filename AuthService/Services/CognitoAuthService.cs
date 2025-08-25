@@ -1,5 +1,7 @@
-﻿using Amazon.CognitoIdentityProvider;
+﻿using Amazon;
+using Amazon.CognitoIdentityProvider;
 using Amazon.CognitoIdentityProvider.Model;
+using Amazon.Runtime;
 using AuthService.DTO;
 using AuthService.Helpers;
 using AuthService.Interfaces;
@@ -10,12 +12,17 @@ namespace AuthService.Services
     public class CognitoAuthService : ICognitoAuthService
     {
         private readonly IAmazonCognitoIdentityProvider _cognito;
+        private readonly IAmazonCognitoIdentityProvider _cognitoAdmin;
         private readonly CognitoOptions _cognitoOptions;
 
-        public CognitoAuthService(IAmazonCognitoIdentityProvider cognito, IOptions<CognitoOptions> cognitoOptions)
+        public CognitoAuthService(IAmazonCognitoIdentityProvider cognito, IAmazonCognitoIdentityProvider cognitoAdmin, IOptions<CognitoOptions> cognitoOptions)
         {
             _cognito = cognito;
             _cognitoOptions = cognitoOptions.Value;
+            _cognitoAdmin = new AmazonCognitoIdentityProviderClient(
+                new BasicAWSCredentials(_cognitoOptions.AccessKey, _cognitoOptions.SecretKey), 
+                RegionEndpoint.APSoutheast1
+            );
         }
 
         public async Task<bool> RegisterAsync(RegisterRequest request, CancellationToken cancellationToken = default)
@@ -116,6 +123,57 @@ namespace AuthService.Services
             {
                 throw new InvalidOperationException($"Login failed: {ex.Message}");
             }
+        }
+
+        public async Task<List<UserDTO>> GetAllUsersAsync(CancellationToken cancellationToken = default)
+        {
+            var result = new List<UserDTO>();
+            string paginationToken = null;
+
+            do
+            {
+                // Fetch each 60 users for each batch. Until PaginationToken = null then stop.
+                var response = await _cognitoAdmin.ListUsersAsync(new ListUsersRequest
+                {
+                    UserPoolId = _cognitoOptions.UserPoolId,
+                    PaginationToken = paginationToken
+                }, cancellationToken);
+
+                foreach (var user in response.Users)
+                {
+                    result.Add(new UserDTO
+                    {
+                        Email = user.Attributes.FirstOrDefault(a => a.Name == "email")?.Value,
+                        Name = user.Attributes.FirstOrDefault(a => a.Name == "name")?.Value,
+                        PhoneNumber = user.Attributes.FirstOrDefault(a => a.Name == "phone_number")?.Value,
+                        Birthdate = user.Attributes.FirstOrDefault(a => a.Name == "birthdate")?.Value,
+                        Gender = user.Attributes.FirstOrDefault(a => a.Name == "gender")?.Value,
+                    });
+                }
+
+                paginationToken = response.PaginationToken;
+            }
+            while (!string.IsNullOrEmpty(paginationToken));
+
+            return result;
+        }
+
+        public async Task<UserDTO> GetUserByEmailAsync(string email, CancellationToken cancellationToken = default)
+        {
+            var user = await _cognitoAdmin.AdminGetUserAsync(new AdminGetUserRequest
+            {
+                UserPoolId = _cognitoOptions.UserPoolId,
+                Username = email
+            }, cancellationToken);
+
+            return new UserDTO
+            {
+                Email = user.UserAttributes.FirstOrDefault(a => a.Name == "email")?.Value,
+                Name = user.UserAttributes.FirstOrDefault(a => a.Name == "name")?.Value,
+                PhoneNumber = user.UserAttributes.FirstOrDefault(a => a.Name == "phone_number")?.Value,
+                Birthdate = user.UserAttributes.FirstOrDefault(a => a.Name == "birthdate")?.Value,
+                Gender = user.UserAttributes.FirstOrDefault(a => a.Name == "gender")?.Value,
+            };
         }
     }
 }

@@ -46,7 +46,22 @@ namespace AuthService.Services
             try
             {
                 var response = await _cognito.SignUpAsync(signUp, cancellationToken);
-                return response.HttpStatusCode == System.Net.HttpStatusCode.OK;
+                if (response.HttpStatusCode == System.Net.HttpStatusCode.OK)
+                {
+                    // After register sucess -> grant user to "Employee" group
+                    var addUserReq = new AdminAddUserToGroupRequest
+                    {
+                        GroupName = "Employee",
+                        Username = request.Email,
+                        UserPoolId = _cognitoOptions.UserPoolId
+                    };
+                    await _cognitoAdmin.AdminAddUserToGroupAsync(addUserReq, cancellationToken);
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
             catch (UsernameExistsException)
             {

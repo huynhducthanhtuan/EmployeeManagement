@@ -1,4 +1,4 @@
-name: Build & Push EmployeeService iamge to Docker Hub
+name: Build & Push EmployeeService image to Docker Hub
 
 on:
   push:

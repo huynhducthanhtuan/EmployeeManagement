@@ -48,7 +48,7 @@ namespace AuthService.Services
                 var response = await _cognito.SignUpAsync(signUp, cancellationToken);
                 if (response.HttpStatusCode == System.Net.HttpStatusCode.OK)
                 {
-                    // After register sucess -> grant user to Employee group
+                    // After register sucess -> Grant user to Employee group
                     var addUserReq = new AdminAddUserToGroupRequest
                     {
                         GroupName = "Employee",

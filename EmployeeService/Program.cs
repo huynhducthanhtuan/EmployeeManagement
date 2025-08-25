@@ -43,7 +43,7 @@ app.UseSwagger(c =>
 });
 app.UseSwaggerUI(c =>
 {
-    c.SwaggerEndpoint("/api/employee-service/swagger/v1/swagger.json", "EmployeeService API v1");
+    c.SwaggerEndpoint("/api/employee-service/swagger/v1/swagger.json", "Employee API v1");
 });
 
 app.UseHttpsRedirection();

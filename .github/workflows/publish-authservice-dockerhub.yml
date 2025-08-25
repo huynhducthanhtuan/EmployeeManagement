@@ -1,4 +1,4 @@
-name: Build & Push AuthService iamge to Docker Hub
+name: Build & Push AuthService image to Docker Hub
 
 on:
   push:

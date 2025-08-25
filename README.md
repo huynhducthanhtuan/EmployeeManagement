@@ -9,6 +9,7 @@
 - Auth Mechanism: AWS Cognito (User Pool, App Client)
 - Infrastructure: AWS EC2
 - Image Registry: Docker Hub
+- Pipeline: [![Build & Push AuthService image to Docker Hub](https://github.com/huynhducthanhtuan/EmployeeManagement/actions/workflows/publish-authservice-dockerhub.yml/badge.svg)](https://github.com/huynhducthanhtuan/EmployeeManagement/actions/workflows/publish-authservice-dockerhub.yml)
 
 ## 👥 EmployeeService
 
@@ -17,6 +18,7 @@
 - Database: AWS RDS SQL Server
 - Infrastructure: AWS EC2
 - Image Registry: Docker Hub
+- Pipeline: [![Build & Push EmployeeService image to Docker Hub](https://github.com/huynhducthanhtuan/EmployeeManagement/actions/workflows/publish-employeeservice-dockerhub.yml/badge.svg)](https://github.com/huynhducthanhtuan/EmployeeManagement/actions/workflows/publish-employeeservice-dockerhub.yml)
 
 ## ⚙️ AWS Setup Instructions
 

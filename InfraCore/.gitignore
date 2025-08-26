@@ -1,0 +1,6 @@
+﻿# Ignore folders
+/.vs
+/bin
+/obj
+
+# Ignore files

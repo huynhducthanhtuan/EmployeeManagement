@@ -1,0 +1,35 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<IsPackable>true</IsPackable>
+		<PackageId>EmployeeManagement.InfraCore</PackageId>
+		<Version>1.0.0</Version>
+		<Authors>huynhducthanhtuan</Authors>
+		<Description>Common packages for Employee Management System</Description>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="AWSSDK.CognitoIdentityProvider" Version="4.0.3.1" />
+		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.19" />
+		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Folder Include="Commons\Constants\" />
+		<Folder Include="Commons\Helpers\" />
+		<Folder Include="Commons\Enums\" />
+		<Folder Include="Commons\Interfaces\" />
+		<Folder Include="Commons\Services\" />
+		<Folder Include="Commons\Repositories\" />
+		<Folder Include="Extensions\" />
+		<Folder Include="Helpers\" />
+		<Folder Include="Constants\" />
+		<Folder Include="bin\" />
+		<Folder Include="obj\" />
+	</ItemGroup>
+
+</Project>

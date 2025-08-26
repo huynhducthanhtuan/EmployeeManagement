@@ -8,7 +8,7 @@
 - Swagger UI: [`http://<EC2_PUBLIC_IP>:5000/api/auth-service/swagger/index.html`](http://<EC2_PUBLIC_IP>:5000/api/auth-service/swagger/index.html)
 - Auth Mechanism: AWS Cognito (User Pool, App Client)
 - Infrastructure: AWS EC2
-- Image Registry: Docker Hub
+- Image Registry: Docker Hub [`hdthanhtuan/authservice`](https://hub.docker.com/repository/docker/hdthanhtuan/authservice)
 - Pipeline: [![Build & Push AuthService image to Docker Hub](https://github.com/huynhducthanhtuan/EmployeeManagement/actions/workflows/publish-authservice-dockerhub.yml/badge.svg)](https://github.com/huynhducthanhtuan/EmployeeManagement/actions/workflows/publish-authservice-dockerhub.yml)
 
 ## 👥 EmployeeService
@@ -17,7 +17,7 @@
 - Swagger UI: [`http://<EC2_PUBLIC_IP>:5001/api/employee-service/swagger/index.html`](http://<EC2_PUBLIC_IP>:5001/api/employee-service/swagger/index.html)
 - Database: AWS RDS SQL Server
 - Infrastructure: AWS EC2
-- Image Registry: Docker Hub
+- Image Registry: Docker Hub [`hdthanhtuan/employeeservice`](https://hub.docker.com/repository/docker/hdthanhtuan/employeeservice)
 - Pipeline: [![Build & Push EmployeeService image to Docker Hub](https://github.com/huynhducthanhtuan/EmployeeManagement/actions/workflows/publish-employeeservice-dockerhub.yml/badge.svg)](https://github.com/huynhducthanhtuan/EmployeeManagement/actions/workflows/publish-employeeservice-dockerhub.yml)
 
 ## ⚙️ AWS Setup Instructions

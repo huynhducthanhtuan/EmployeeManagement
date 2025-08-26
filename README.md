@@ -2,7 +2,7 @@
 
 ### An .NET Core Web API Microservices Project
 
-## 🔐 AuthService
+## 🔐 AuthService - Auth APIs
 
 - Base URL: [`http://<EC2_PUBLIC_IP>:5000/api/auth-service`](http://<EC2_PUBLIC_IP>:5000/api/auth-service)
 - Swagger UI: [`http://<EC2_PUBLIC_IP>:5000/api/auth-service/swagger/index.html`](http://<EC2_PUBLIC_IP>:5000/api/auth-service/swagger/index.html)
@@ -11,7 +11,7 @@
 - Image Registry: Docker Hub [`hdthanhtuan/authservice`](https://hub.docker.com/repository/docker/hdthanhtuan/authservice)
 - Pipeline: [![Build & Push AuthService image to Docker Hub](https://github.com/huynhducthanhtuan/EmployeeManagement/actions/workflows/publish-authservice-dockerhub.yml/badge.svg)](https://github.com/huynhducthanhtuan/EmployeeManagement/actions/workflows/publish-authservice-dockerhub.yml)
 
-## 👥 EmployeeService
+## 👥 EmployeeService - Employee APIs
 
 - Base URL: [`http://<EC2_PUBLIC_IP>:5001/api/employee-service`](http://<EC2_PUBLIC_IP>:5001/api/employee-service)
 - Swagger UI: [`http://<EC2_PUBLIC_IP>:5001/api/employee-service/swagger/index.html`](http://<EC2_PUBLIC_IP>:5001/api/employee-service/swagger/index.html)
@@ -19,6 +19,12 @@
 - Infrastructure: AWS EC2
 - Image Registry: Docker Hub [`hdthanhtuan/employeeservice`](https://hub.docker.com/repository/docker/hdthanhtuan/employeeservice)
 - Pipeline: [![Build & Push EmployeeService image to Docker Hub](https://github.com/huynhducthanhtuan/EmployeeManagement/actions/workflows/publish-employeeservice-dockerhub.yml/badge.svg)](https://github.com/huynhducthanhtuan/EmployeeManagement/actions/workflows/publish-employeeservice-dockerhub.yml)
+
+## ⚙️ InfraCore - Infrastructure Commons
+
+- Package Manager: NuGet.org
+- NuGet package: [`EmployeeManagement.InfraCore`](https://www.nuget.org/packages/EmployeeManagement.InfraCore/)
+- Pipeline: [![Build & Push InfraCore commons to Nuget.org](https://github.com/huynhducthanhtuan/EmployeeManagement/actions/workflows/publish-infracore-nugetorg.yml/badge.svg)](https://github.com/huynhducthanhtuan/EmployeeManagement/actions/workflows/publish-infracore-nugetorg.yml)
 
 ## ⚙️ AWS Setup Instructions
 
@@ -45,7 +51,7 @@
 
 - Create App Client
 - Get **ClientID** and **ClientSecret**
-- **Note:** Update the following in `./AuthService/appsettings.json`:
+- **Note:** Update the following in `./AuthService/appsettings.json` and `./EmployeeService/appsettings.json`:
 
 ```json
 "Cognito": {
@@ -98,7 +104,7 @@
 
 - Determine the AWS region where resources will be deployed
 - Example: `us-east-1`
-- **Note:** Update the following in `./AuthService/appsettings.json`:
+- **Note:** Update the following in `./AuthService/appsettings.json` and `./EmployeeService/appsettings.json`:
 
 ```json
 "AWS": {
@@ -114,7 +120,6 @@
 | `us-west-1`      | N. California, USA |
 | `ap-southeast-1` | Singapore          |
 | `ap-northeast-1` | Tokyo, Japan       |
-| ...              | ...                |
 
 ## 📡 Connect to AWS EC2
 

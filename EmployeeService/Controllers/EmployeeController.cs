@@ -3,6 +3,7 @@ using EmployeeService.Commands;
 using EmployeeService.DTO;
 using EmployeeService.Queries;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EmployeeService.Controllers
@@ -21,6 +22,7 @@ namespace EmployeeService.Controllers
         }
 
         [HttpGet("All")]
+        [Authorize(Roles = "Admin,Manager")]
         public async Task<IActionResult> GetAllEmployees()
         {
             try
@@ -36,6 +38,7 @@ namespace EmployeeService.Controllers
         }
 
         [HttpGet("{id:required}")]
+        [Authorize]
         public async Task<IActionResult> GetEmployeeById(string id)
         {
             try
@@ -52,6 +55,7 @@ namespace EmployeeService.Controllers
         }
 
         [HttpPut("{id:required}")]
+        [Authorize]
         public async Task<IActionResult> UpdateEmployee(string id, [FromBody][Required] EmployeeDTO body)
         {
             try
@@ -68,6 +72,7 @@ namespace EmployeeService.Controllers
         }
 
         [HttpDelete("{id:required}/SoftDelete")]
+        [Authorize(Roles = "Admin,Manager")]
         public async Task<IActionResult> SoftDeleteEmployee(string id)
         {
             try
@@ -84,6 +89,7 @@ namespace EmployeeService.Controllers
         }
 
         [HttpDelete("{id:required}/HardDelete")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> HardDeleteEmployee(string id)
         {
             try
@@ -100,6 +106,7 @@ namespace EmployeeService.Controllers
         }
 
         [HttpPost("New")]
+        [Authorize(Roles = "Admin,Manager")]
         public async Task<IActionResult> CreateNewEmployee([FromBody][Required] EmployeeDTO body)
         {
             try

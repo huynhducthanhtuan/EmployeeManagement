@@ -3,6 +3,7 @@ using EmployeeService.Data;
 using EmployeeService.Interfaces;
 using EmployeeService.Profiles;
 using EmployeeService.Repositories;
+using InfraCore.Commons.Extensions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 
@@ -22,10 +23,9 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 );
 
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
-
 builder.Services.AddControllers();
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddCognitoAuthentication(builder.Configuration);
+builder.Services.AddSwaggerDocumentation(builder.Configuration, "Employee API", "v1");
 
 var app = builder.Build();
 

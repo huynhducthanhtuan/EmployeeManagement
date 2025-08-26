@@ -2,9 +2,9 @@ using System.Reflection;
 using Amazon;
 using Amazon.CognitoIdentityProvider;
 using AuthService.DTO;
-using AuthService.Extensions;
 using AuthService.Interfaces;
 using AuthService.Services;
+using InfraCore.Commons.Extensions;
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);

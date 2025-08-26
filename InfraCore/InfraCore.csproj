@@ -10,6 +10,7 @@
 		<Authors>huynhducthanhtuan</Authors>
 		<Description>Common packages for Employee Management System</Description>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -19,6 +20,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<!-- Ensure the README.md file is included when packing -->
+		<None Include="README.md" Pack="true" PackagePath="" />
 		<Folder Include="Commons\Constants\" />
 		<Folder Include="Commons\Helpers\" />
 		<Folder Include="Commons\Enums\" />

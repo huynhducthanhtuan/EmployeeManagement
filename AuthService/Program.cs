@@ -26,20 +26,19 @@ builder.Services.AddSwaggerDocumentation(builder.Configuration, "Auth API", "v1"
 var app = builder.Build();
 
 // Configure the HTTP request pipeline
-app.UsePathBase("/api/auth-service");
 app.UseSwagger(c =>
 {
     c.PreSerializeFilters.Add((swagger, req) =>
     {
         swagger.Servers = new List<OpenApiServer>
         {
-            new OpenApiServer { Url = $"{req.Scheme}://{req.Host.Value}/api/auth-service" }
+            new OpenApiServer { Url = $"{req.Scheme}://{req.Host.Value}" }
         };
     });
 });
 app.UseSwaggerUI(c =>
 {
-    c.SwaggerEndpoint("/api/auth-service/swagger/v1/swagger.json", "Auth API v1");
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Auth API v1");
 });
 
 app.UseHttpsRedirection();

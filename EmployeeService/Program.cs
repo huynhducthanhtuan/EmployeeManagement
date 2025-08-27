@@ -30,20 +30,19 @@ builder.Services.AddSwaggerDocumentation(builder.Configuration, "Employee API", 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline
-app.UsePathBase("/api/employee-service");
 app.UseSwagger(c =>
 {
     c.PreSerializeFilters.Add((swagger, req) =>
     {
         swagger.Servers = new List<OpenApiServer>
         {
-            new OpenApiServer { Url = $"{req.Scheme}://{req.Host.Value}/api/employee-service" }
+            new OpenApiServer { Url = $"{req.Scheme}://{req.Host.Value}" }
         };
     });
 });
 app.UseSwaggerUI(c =>
 {
-    c.SwaggerEndpoint("/api/employee-service/swagger/v1/swagger.json", "Employee API v1");
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Employee API v1");
 });
 
 app.UseHttpsRedirection();

@@ -3,6 +3,7 @@ using EmployeeService.Data;
 using EmployeeService.Interfaces;
 using EmployeeService.Profiles;
 using EmployeeService.Repositories;
+using EmployeeService.Services;
 using InfraCore.Commons.Extensions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
@@ -12,6 +13,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container
 builder.Services.AddScoped(typeof(ISqlRepository<>), typeof(SqlRepository<>));
 builder.Services.AddScoped(typeof(IEmployeeService), typeof(EmployeeService.Services.EmployeeService));
+builder.Services.AddSingleton<IS3Service, S3Service>();
 
 builder.Services.AddAutoMapper(configuration =>
 {

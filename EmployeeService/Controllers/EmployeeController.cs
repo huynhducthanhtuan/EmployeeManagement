@@ -1,6 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using EmployeeService.Commands;
 using EmployeeService.DTO;
+using EmployeeService.Interfaces;
 using EmployeeService.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -14,11 +15,13 @@ namespace EmployeeService.Controllers
     {
         private readonly ILogger<EmployeeController> _logger;
         private readonly IMediator _mediator;
+        private readonly IS3Service _s3Service;
 
-        public EmployeeController(ILogger<EmployeeController> logger, IMediator mediator)
+        public EmployeeController(ILogger<EmployeeController> logger, IMediator mediator, IS3Service s3Service)
         {
             _logger = logger;
             _mediator = mediator;
+            _s3Service = s3Service;
         }
 
         [HttpGet("All")]
@@ -98,6 +101,23 @@ namespace EmployeeService.Controllers
                 var command = new HardDeleteEmployeeCommand { Id = id };
                 var result = await _mediator.Send(command);
                 return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("{id:required}/Avartar")]
+        [Consumes("multipart/form-data")]
+        [Authorize(Roles = "Employee")]
+        public async Task<IActionResult> UploadEmployeeAvatar(string id, IFormFile file)
+        {
+            try
+            {
+                if (file == null || file.Length == 0) return BadRequest("No file uploaded.");
+                var url = await _s3Service.UploadFileAsync(file);
+                return Ok(new { Url = url });
             }
             catch (Exception ex)
             {

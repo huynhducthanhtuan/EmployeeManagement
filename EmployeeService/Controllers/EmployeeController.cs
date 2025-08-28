@@ -111,13 +111,15 @@ namespace EmployeeService.Controllers
         [HttpPost("{id:required}/Avartar")]
         [Consumes("multipart/form-data")]
         [Authorize(Roles = "Employee")]
-        public async Task<IActionResult> UploadEmployeeAvatar(string id, IFormFile file)
+        public async Task<IActionResult> UpdateEmployeeAvatar(string id, IFormFile file)
         {
             try
             {
                 if (file == null || file.Length == 0) return BadRequest("No file uploaded.");
                 var url = await _s3Service.UploadFileAsync(file);
-                return Ok(new { Url = url });
+                var command = new UpdateEmployeeCommand { Id = id, Employee = new EmployeeDTO() { AvatarImage = url } };
+                var result = await _mediator.Send(command);
+                return Ok(result);
             }
             catch (Exception ex)
             {

@@ -10,6 +10,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AWSSDK.SecretsManager" Version="4.0.1" />
     <PackageReference Include="EmployeeManagement.InfraCore" Version="1.0.3" />
 	<PackageReference Include="MediatR" Version="13.0.0" />
 	<PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="11.1.0" />

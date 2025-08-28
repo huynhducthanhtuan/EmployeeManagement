@@ -39,10 +39,18 @@ namespace EmployeeService.Services
 
         public async Task<bool> UpdateEmployee(UpdateEmployeeCommand request)
         {
-            var entity = _mapper.Map<Employee>(request.Employee);
-            entity.Id = request.Id;
-            await _employeeRepository.UpdateItemAsync(entity);
-            return true;
+            var existingEntity = await _employeeRepository.GetItemByIdAsync(request.Id);
+            if (existingEntity != null)
+            {
+                // Map request.Employee into existingEntity
+                var updateEntity = _mapper.Map(request.Employee, existingEntity);
+                await _employeeRepository.UpdateItemAsync(updateEntity);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         public async Task<bool> SoftDeleteEmployee(SoftDeleteEmployeeCommand request)

@@ -10,8 +10,8 @@ namespace InfraCore.Commons.Extensions
     {
         public static IServiceCollection AddCognitoAuthentication(this IServiceCollection services, IConfiguration configuration)
         {
-            var cognitoPoolId = configuration["Cognito:UserPoolId"];
             var cognitoRegion = configuration["AWS:Region"];
+            var cognitoPoolId = configuration["Cognito:UserPoolId"];
             var cognitoClientId = configuration["Cognito:ClientId"];
             var cognitoIssuerUrl = $"https://cognito-idp.{cognitoRegion}.amazonaws.com/{cognitoPoolId}";
 

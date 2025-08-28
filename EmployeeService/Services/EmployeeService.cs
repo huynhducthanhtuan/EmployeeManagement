@@ -9,31 +9,31 @@ namespace EmployeeService.Services
 {
     public class EmployeeService : IEmployeeService
     {
-        private readonly ISqlRepository<Employee> _userRepository;
+        private readonly ISqlRepository<Employee> _employeeRepository;
         private readonly IMapper _mapper;
 
-        public EmployeeService(ISqlRepository<Employee> userRepository, IMapper mapper)
+        public EmployeeService(ISqlRepository<Employee> employeeRepository, IMapper mapper)
         {
-            _userRepository = userRepository;
+            _employeeRepository = employeeRepository;
             _mapper = mapper;
         }
 
         public async Task<List<EmployeeDTO>> GetAllEmployees()
         {
-            var employees = await _userRepository.GetAllItemsAsync();
+            var employees = await _employeeRepository.GetAllItemsAsync();
             return _mapper.Map<List<EmployeeDTO>>(employees);
         }
 
         public async Task<EmployeeDTO> GetEmployeeById(GetEmployeeByIdQuery request)
         {
-            var employee = await _userRepository.GetItemByIdAsync(request.Id);
+            var employee = await _employeeRepository.GetItemByIdAsync(request.Id);
             return _mapper.Map<EmployeeDTO>(employee);
         }
 
         public async Task<bool> CreateNewEmployee(CreateNewEmployeeCommand request)
         {
             var newEmployee = _mapper.Map<Employee>(request.Employee);
-            var result = await _userRepository.AddItemAsync(newEmployee);
+            var result = await _employeeRepository.AddItemAsync(newEmployee);
             return true;
         }
 
@@ -41,19 +41,19 @@ namespace EmployeeService.Services
         {
             var entity = _mapper.Map<Employee>(request.Employee);
             entity.Id = request.Id;
-            await _userRepository.UpdateItemAsync(entity);
+            await _employeeRepository.UpdateItemAsync(entity);
             return true;
         }
 
         public async Task<bool> SoftDeleteEmployee(SoftDeleteEmployeeCommand request)
         {
-            await _userRepository.SoftDeleteItemAsync(request.Id);
+            await _employeeRepository.SoftDeleteItemAsync(request.Id);
             return true;
         }
 
         public async Task<bool> HardDeleteEmployee(HardDeleteEmployeeCommand request)
         {
-            await _userRepository.HardDeleteItemAsync(request.Id);
+            await _employeeRepository.HardDeleteItemAsync(request.Id);
             return true;
         }
     }

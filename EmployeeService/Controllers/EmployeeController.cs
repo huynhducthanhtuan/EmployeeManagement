@@ -15,13 +15,11 @@ namespace EmployeeService.Controllers
     {
         private readonly ILogger<EmployeeController> _logger;
         private readonly IMediator _mediator;
-        private readonly IS3Service _s3Service;
 
-        public EmployeeController(ILogger<EmployeeController> logger, IMediator mediator, IS3Service s3Service)
+        public EmployeeController(ILogger<EmployeeController> logger, IMediator mediator)
         {
             _logger = logger;
             _mediator = mediator;
-            _s3Service = s3Service;
         }
 
         [HttpGet("All")]
@@ -116,9 +114,13 @@ namespace EmployeeService.Controllers
             try
             {
                 if (file == null || file.Length == 0) return BadRequest("No file uploaded.");
-                var url = await _s3Service.UploadFileAsync(file);
-                var command = new UpdateEmployeeCommand { Id = id, Employee = new EmployeeDTO() { AvatarImage = url } };
-                var result = await _mediator.Send(command);
+
+                var uploadFileCommand = new UploadFileToS3Command() { File = file };
+                var url = await _mediator.Send(uploadFileCommand);
+
+                var updateEmployeeCommand = new UpdateEmployeeCommand { Id = id, Employee = new EmployeeDTO() { AvatarImage = url } };
+                var result = await _mediator.Send(updateEmployeeCommand);
+
                 return Ok(result);
             }
             catch (Exception ex)

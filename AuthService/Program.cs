@@ -10,7 +10,7 @@ using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// AWS Secrets Manager config for production environment
+// AWS Secrets Manager config for production
 //if (!builder.Environment.IsDevelopment())
 //{
 //    var secretJson = await AwsSecretHelper.GetSecretAsync("EmployeeManagementSecrets", "ap-southeast-1");

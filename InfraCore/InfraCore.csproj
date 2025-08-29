@@ -6,7 +6,7 @@
 		<Nullable>enable</Nullable>
 		<IsPackable>true</IsPackable>
 		<PackageId>EmployeeManagement.InfraCore</PackageId>
-		<Version>1.0.5</Version>
+		<Version>1.0.6</Version>
 		<Authors>huynhducthanhtuan</Authors>
 		<Description>Common packages for Employee Management System</Description>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>

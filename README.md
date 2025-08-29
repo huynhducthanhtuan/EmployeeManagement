@@ -27,6 +27,12 @@
 - NuGet package: [`EmployeeManagement.InfraCore`](https://www.nuget.org/packages/EmployeeManagement.InfraCore/)
 - Pipeline: [![Build & Push InfraCore commons to Nuget.org](https://github.com/huynhducthanhtuan/EmployeeManagement/actions/workflows/publish-infracore-nugetorg.yml/badge.svg)](https://github.com/huynhducthanhtuan/EmployeeManagement/actions/workflows/publish-infracore-nugetorg.yml)
 
+## 🚀 Automation Deployment - GitHub Self-Hosted Runner On AWS EC2
+
+- Runner: GitHub Self-Hosted Runner
+- Infrastructure: AWS EC2
+- Pipeline: [![Deploy services on AWS EC2](https://github.com/huynhducthanhtuan/EmployeeManagement/actions/workflows/deploy-ec2.yml/badge.svg)](https://github.com/huynhducthanhtuan/EmployeeManagement/actions/workflows/deploy-ec2.yml)
+
 ## ⚙️ AWS Setup Instructions
 
 ### 1. Create AWS RDS SQL Server Database

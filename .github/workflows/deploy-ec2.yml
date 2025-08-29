@@ -1,12 +1,11 @@
 name: Deploy services on AWS EC2
 
 on:
-  workflow_run: # Only trigger this workflow if these 3 workflows are completed & success
+  workflow_run: # Only trigger this workflow if these workflows are completed & success
     workflows:
       [
         "Build & Push AuthService image to Docker Hub",
         "Build & Push EmployeeService image to Docker Hub",
-        "Build & Push InfraCore commons to Nuget.org",
       ]
     types:
       - completed

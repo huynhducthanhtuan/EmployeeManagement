@@ -36,7 +36,7 @@ builder.Services.AddSwaggerDocumentation(builder.Configuration, "Employee API", 
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline
+// Configure SwaggerUI
 app.UseSwagger(c =>
 {
     c.PreSerializeFilters.Add((swagger, req) =>

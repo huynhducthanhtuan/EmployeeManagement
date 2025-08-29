@@ -6,7 +6,7 @@
 		<Nullable>enable</Nullable>
 		<IsPackable>true</IsPackable>
 		<PackageId>EmployeeManagement.InfraCore</PackageId>
-		<Version>1.0.4</Version>
+		<Version>1.0.5</Version>
 		<Authors>huynhducthanhtuan</Authors>
 		<Description>Common packages for Employee Management System</Description>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
@@ -22,7 +22,6 @@
 	<ItemGroup>
 		<!-- Ensure the README.md file is included when packing -->
 		<None Include="README.md" Pack="true" PackagePath="" />
-		<Folder Include="Commons\Constants\" />
 		<Folder Include="Commons\Helpers\" />
 		<Folder Include="Commons\Enums\" />
 		<Folder Include="Commons\Interfaces\" />

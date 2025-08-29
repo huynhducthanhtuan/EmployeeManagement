@@ -1,0 +1,21 @@
+name: Deploy services on AWS EC2
+
+on:
+  workflow_run: # Only trigger this workflow if these 3 workflows are completed & success
+    workflows:
+      [
+        "Build & Push AuthService image to Docker Hub",
+        "Build & Push EmployeeService image to Docker Hub",
+        "Build & Push InfraCore commons to Nuget.org",
+      ]
+    types:
+      - completed
+
+jobs:
+  deploy-ec2:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3

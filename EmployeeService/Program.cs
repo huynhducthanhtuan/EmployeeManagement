@@ -1,4 +1,5 @@
 using System.Reflection;
+using System.Text.Json.Serialization;
 using EmployeeService.Data;
 using EmployeeService.Interfaces;
 using EmployeeService.Profiles;
@@ -25,7 +26,11 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 );
 
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+    });
 builder.Services.AddCognitoAuthentication(builder.Configuration);
 builder.Services.AddSwaggerDocumentation(builder.Configuration, "Employee API", "v1");
 

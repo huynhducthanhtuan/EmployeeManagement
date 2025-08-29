@@ -16,6 +16,7 @@
 - Base URL: [`http://<EC2_PUBLIC_IP>/api/employee-service`](http://<EC2_PUBLIC_IP>/api/employee-service)
 - Swagger UI: [`http://<EC2_PUBLIC_IP>/api/employee-service/swagger/index.html`](http://<EC2_PUBLIC_IP>/api/employee-service/swagger/index.html)
 - Database: AWS RDS SQL Server
+- Image Storage: AWS S3
 - Infrastructure: AWS EC2
 - Image Registry: Docker Hub [`hdthanhtuan/employeeservice`](https://hub.docker.com/repository/docker/hdthanhtuan/employeeservice)
 - Pipeline: [![Build & Push EmployeeService image to Docker Hub](https://github.com/huynhducthanhtuan/EmployeeManagement/actions/workflows/publish-employeeservice-dockerhub.yml/badge.svg)](https://github.com/huynhducthanhtuan/EmployeeManagement/actions/workflows/publish-employeeservice-dockerhub.yml)

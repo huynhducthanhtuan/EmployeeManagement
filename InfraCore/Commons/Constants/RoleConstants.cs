@@ -2,8 +2,8 @@
 {
     public static class RoleConstants
     {
-        public static string Employee = "Employee";
-        public static string Manager = "Manager";
-        public static string Admin = "Admin";
+        public const string Employee = "Employee";
+        public const string Manager = "Manager";
+        public const string Admin = "Admin";
     }
 }

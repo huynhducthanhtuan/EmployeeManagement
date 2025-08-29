@@ -1,4 +1,6 @@
 using EmployeeService.Queries;
+using InfraCore.Commons.Attributes;
+using InfraCore.Commons.Constants;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -19,7 +21,7 @@ namespace AuthService.Controllers
         }
 
         [HttpGet("All")]
-        [Authorize(Roles = "Admin,Manager")]
+        [MultiAuthorize(RoleConstants.Manager, RoleConstants.Admin)]
         public async Task<IActionResult> GetAllUsers()
         {
             try
@@ -35,7 +37,7 @@ namespace AuthService.Controllers
         }
 
         [HttpGet("{email:required}")]
-        [Authorize(Roles = "Admin,Manager")]
+        [MultiAuthorize(RoleConstants.Manager, RoleConstants.Admin)]
         public async Task<IActionResult> GetUserByEmail(string email)
         {
             try

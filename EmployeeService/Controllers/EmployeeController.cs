@@ -1,8 +1,9 @@
 using System.ComponentModel.DataAnnotations;
 using EmployeeService.Commands;
 using EmployeeService.DTO;
-using EmployeeService.Interfaces;
 using EmployeeService.Queries;
+using InfraCore.Commons.Attributes;
+using InfraCore.Commons.Constants;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -23,7 +24,7 @@ namespace EmployeeService.Controllers
         }
 
         [HttpGet("All")]
-        [Authorize(Roles = "Admin,Manager")]
+        [MultiAuthorize(RoleConstants.Manager, RoleConstants.Admin)]
         public async Task<IActionResult> GetAllEmployees()
         {
             try
@@ -73,7 +74,7 @@ namespace EmployeeService.Controllers
         }
 
         [HttpDelete("{id:required}/SoftDelete")]
-        [Authorize(Roles = "Admin,Manager")]
+        [MultiAuthorize(RoleConstants.Manager, RoleConstants.Admin)]
         public async Task<IActionResult> SoftDeleteEmployee(string id)
         {
             try
@@ -90,7 +91,7 @@ namespace EmployeeService.Controllers
         }
 
         [HttpDelete("{id:required}/HardDelete")]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = RoleConstants.Admin)]
         public async Task<IActionResult> HardDeleteEmployee(string id)
         {
             try
@@ -108,7 +109,7 @@ namespace EmployeeService.Controllers
 
         [HttpPost("{id:required}/Avartar")]
         [Consumes("multipart/form-data")]
-        [Authorize(Roles = "Employee")]
+        [Authorize(Roles = RoleConstants.Employee)]
         public async Task<IActionResult> UpdateEmployeeAvatar(string id, IFormFile file)
         {
             try
@@ -130,7 +131,7 @@ namespace EmployeeService.Controllers
         }
 
         [HttpPost("New")]
-        [Authorize(Roles = "Admin,Manager")]
+        [MultiAuthorize(RoleConstants.Manager, RoleConstants.Admin)]
         public async Task<IActionResult> CreateNewEmployee([FromBody][Required] EmployeeDTO body)
         {
             try

@@ -153,11 +153,11 @@ cd EmployeeManagement
 Start docker compose:
 
 ```bash
-docker-compose up -d --build
+sudo docker-compose up -d --build
 ```
 
 Stop docker compose:
 
 ```bash
-docker-compose down
+sudo docker-compose down
 ```

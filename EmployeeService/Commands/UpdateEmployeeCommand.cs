@@ -6,6 +6,6 @@ namespace EmployeeService.Commands
     public class UpdateEmployeeCommand : IRequest<bool>
     {
         public string Id { get; set; }
-        public EmployeeDTO Employee { get; set; }
+        public UpdateEmployeeDTO Employee { get; set; }
     }
 }

@@ -16,6 +16,13 @@ namespace EmployeeService.Profiles
                 .ForMember(dest => dest.Gender, opt => opt.Condition(src => src.Gender != null))
                 .ForMember(dest => dest.Hometown, opt => opt.Condition(src => src.Hometown != null))
                 .ForMember(dest => dest.AvatarImage, opt => opt.Condition(src => src.AvatarImage != null));
+            CreateMap<UpdateEmployeeDTO, Employee>()
+                // Only map each field if it != null
+                .ForMember(dest => dest.FullName, opt => opt.Condition(src => src.FullName != null))
+                .ForMember(dest => dest.DateOfBirth, opt => opt.Condition(src => src.DateOfBirth != null))
+                .ForMember(dest => dest.Gender, opt => opt.Condition(src => src.Gender != null))
+                .ForMember(dest => dest.Hometown, opt => opt.Condition(src => src.Hometown != null))
+                .ForMember(dest => dest.AvatarImage, opt => opt.Condition(src => src.AvatarImage != null));
         }
     }
 }

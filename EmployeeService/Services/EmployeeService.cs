@@ -26,7 +26,7 @@ namespace EmployeeService.Services
 
         public async Task<EmployeeDTO> GetEmployeeById(GetEmployeeByIdQuery request)
         {
-            var employee = await _employeeRepository.GetItemByIdAsync(request.Id);
+            var employee = await _employeeRepository.GetItemAsync(request.Id);
             return _mapper.Map<EmployeeDTO>(employee);
         }
 
@@ -39,12 +39,12 @@ namespace EmployeeService.Services
 
         public async Task<bool> UpdateEmployee(UpdateEmployeeCommand request)
         {
-            var existingEntity = await _employeeRepository.GetItemByIdAsync(request.Id);
+            var existingEntity = await _employeeRepository.GetItemAsync(request.Id);
             if (existingEntity != null)
             {
                 // Map request.Employee into existingEntity
                 var updateEntity = _mapper.Map(request.Employee, existingEntity);
-                await _employeeRepository.UpdateItemAsync(updateEntity);
+                await _employeeRepository.UpdateItemAsync(existingEntity.EmployeeId, updateEntity);
                 return true;
             }
             else

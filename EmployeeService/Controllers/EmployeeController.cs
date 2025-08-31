@@ -58,7 +58,7 @@ namespace EmployeeService.Controllers
 
         [HttpPut("{id:required}")]
         [Authorize]
-        public async Task<IActionResult> UpdateEmployee(string id, [FromBody][Required] EmployeeDTO body)
+        public async Task<IActionResult> UpdateEmployee(string id, [FromBody][Required] UpdateEmployeeDTO body)
         {
             try
             {
@@ -119,7 +119,7 @@ namespace EmployeeService.Controllers
                 var uploadFileCommand = new UploadFileToS3Command() { File = file };
                 var url = await _mediator.Send(uploadFileCommand);
 
-                var updateEmployeeCommand = new UpdateEmployeeCommand { Id = id, Employee = new EmployeeDTO() { AvatarImage = url } };
+                var updateEmployeeCommand = new UpdateEmployeeCommand { Id = id, Employee = new UpdateEmployeeDTO() { AvatarImage = url } };
                 var result = await _mediator.Send(updateEmployeeCommand);
 
                 return Ok(result);

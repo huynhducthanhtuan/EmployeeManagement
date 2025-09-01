@@ -3,6 +3,7 @@ using EmployeeService.Entities;
 using Microsoft.EntityFrameworkCore;
 using EmployeeService.Data;
 using System.Linq.Expressions;
+using EmployeeService.Extensions;
 
 namespace EmployeeService.Repositories
 {
@@ -15,11 +16,6 @@ namespace EmployeeService.Repositories
         {
             _context = context;
             _dbSet = context.Set<T>();
-        }
-
-        public async Task<List<T>> GetAllItemsAsync()
-        {
-            return await _dbSet.Where(x => !x.IsDeleted).ToListAsync();
         }
 
         public async Task<T> GetItemAsync(string key)
@@ -38,6 +34,12 @@ namespace EmployeeService.Repositories
                 }
             }
             return await query.FirstOrDefaultAsync(filter);
+        }
+
+        public async Task<List<T>> GetItemsAsync(Expression<Func<T, bool>> filter, bool includeDeleted = false)
+        {
+            filter = FiltersExtensions<T>.AddGlobalFilter(filter, includeDeleted);
+            return await _dbSet.Where(filter).ToListAsync();
         }
 
         public async Task<T> AddItemAsync(T entity)

@@ -20,7 +20,7 @@ namespace EmployeeService.Services
 
         public async Task<List<EmployeeDTO>> GetAllEmployees()
         {
-            var employees = await _employeeRepository.GetAllItemsAsync();
+            var employees = await _employeeRepository.GetItemsAsync(x => x != null);
             return _mapper.Map<List<EmployeeDTO>>(employees);
         }
 

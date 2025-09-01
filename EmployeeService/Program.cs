@@ -1,6 +1,7 @@
 using System.Reflection;
 using System.Text.Json.Serialization;
 using EmployeeService.Data;
+using EmployeeService.Entities;
 using EmployeeService.Interfaces;
 using EmployeeService.Profiles;
 using EmployeeService.Repositories;
@@ -12,8 +13,8 @@ using Microsoft.OpenApi.Models;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container
-builder.Services.AddScoped(typeof(ISqlRepository<>), typeof(SqlRepository<>));
-builder.Services.AddScoped(typeof(IEmployeeService), typeof(EmployeeService.Services.EmployeeService));
+builder.Services.AddScoped<ISqlRepository<Employee>, SqlRepository<Employee>>();
+builder.Services.AddScoped<IEmployeeService, EmployeeService.Services.EmployeeService>();
 builder.Services.AddSingleton<IS3Service, S3Service>();
 
 builder.Services.AddAutoMapper(configuration =>

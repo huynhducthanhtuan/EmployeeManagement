@@ -26,7 +26,7 @@ namespace EmployeeService.Services
 
         public async Task<EmployeeDTO> GetEmployeeById(GetEmployeeByIdQuery request)
         {
-            var employee = await _employeeRepository.GetItemAsync(request.Id);
+            var employee = await _employeeRepository.GetItemMetadataAsync(x => x.EmployeeId == request.Id, x => x.Department, x => x.Position);
             return _mapper.Map<EmployeeDTO>(employee);
         }
 

@@ -1,4 +1,5 @@
-﻿using EmployeeService.Entities;
+﻿using System.Linq.Expressions;
+using EmployeeService.Entities;
 
 namespace EmployeeService.Interfaces
 {
@@ -6,6 +7,7 @@ namespace EmployeeService.Interfaces
     {
         Task<List<T>> GetAllItemsAsync();
         Task<T> GetItemAsync(string key);
+        Task<T> GetItemMetadataAsync(Expression<Func<T, bool>> filter, params Expression<Func<T, object>>[] includes);
         Task<T> AddItemAsync(T entity);
         Task UpdateItemAsync(string key, T entity);
         Task SoftDeleteItemAsync(string key);

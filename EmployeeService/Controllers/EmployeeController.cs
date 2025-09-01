@@ -132,7 +132,7 @@ namespace EmployeeService.Controllers
 
         [HttpPost("New")]
         [MultiAuthorize(RoleConstants.Manager, RoleConstants.Admin)]
-        public async Task<IActionResult> CreateNewEmployee([FromBody][Required] EmployeeDTO body)
+        public async Task<IActionResult> CreateNewEmployee([FromBody][Required] AddEmployeeDTO body)
         {
             try
             {

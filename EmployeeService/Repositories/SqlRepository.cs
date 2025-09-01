@@ -2,6 +2,7 @@
 using EmployeeService.Entities;
 using Microsoft.EntityFrameworkCore;
 using EmployeeService.Data;
+using System.Linq.Expressions;
 
 namespace EmployeeService.Repositories
 {
@@ -24,6 +25,19 @@ namespace EmployeeService.Repositories
         public async Task<T> GetItemAsync(string key)
         {
             return await _dbSet.FindAsync(key);
+        }
+
+        public async Task<T> GetItemMetadataAsync(Expression<Func<T, bool>> filter, params Expression<Func<T, object>>[] includes)
+        {
+            IQueryable<T> query = _dbSet;
+            if (includes != null)
+            {
+                foreach (var include in includes)
+                {
+                    query = query.Include(include);
+                }
+            }
+            return await query.FirstOrDefaultAsync(filter);
         }
 
         public async Task<T> AddItemAsync(T entity)

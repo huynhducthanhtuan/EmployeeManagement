@@ -5,6 +5,6 @@ namespace EmployeeService.Commands
 {
     public class CreateNewEmployeeCommand : IRequest<bool>
     {
-        public EmployeeDTO Employee { get; set; }
+        public AddEmployeeDTO Employee { get; set; }
     }
 }

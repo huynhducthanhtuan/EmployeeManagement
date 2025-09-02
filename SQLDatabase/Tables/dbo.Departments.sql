@@ -3,7 +3,7 @@ CREATE TABLE Departments
     DepartmentId NVARCHAR(450) NOT NULL DEFAULT LOWER(NEWID()) PRIMARY KEY,
     DepartmentName NVARCHAR(max) NOT NULL,
     Description NVARCHAR(max),
-	CreatedDate datetime2(7) NOT NULL DEFAULT GETDATE(),
-	UpdatedDate datetime2(7) NULL,
-	IsDeleted bit NOT NULL DEFAULT 0
+	CreatedDate DATETIME2(7) NOT NULL DEFAULT GETDATE(),
+	UpdatedDate DATETIME2(7) NULL,
+	IsDeleted BIT NOT NULL DEFAULT 0
 );

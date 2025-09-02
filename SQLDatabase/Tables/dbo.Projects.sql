@@ -1,7 +1,7 @@
 CREATE TABLE Projects 
 (
     ProjectId NVARCHAR(450) NOT NULL DEFAULT LOWER(NEWID()) PRIMARY KEY,
-    ProjectName NVARCHAR(max) NOT NULL,
+    ProjectName NVARCHAR(MAX) NOT NULL,
     StartDate DATE NOT NULL,
     EndDate DATE NULL,
     DepartmentId NVARCHAR(450) NOT NULL,

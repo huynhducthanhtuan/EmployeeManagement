@@ -1,8 +1,8 @@
 CREATE TABLE Positions 
 (
     PositionId NVARCHAR(450) NOT NULL DEFAULT LOWER(NEWID()) PRIMARY KEY,
-    PositionName NVARCHAR(max) NOT NULL,
-    Description NVARCHAR(max),
+    PositionName NVARCHAR(MAX) NOT NULL,
+    Description NVARCHAR(MAX),
 	CreatedDate DATETIME2(7) NOT NULL DEFAULT GETDATE(),
 	UpdatedDate DATETIME2(7) NULL,
 	IsDeleted BIT NOT NULL DEFAULT 0

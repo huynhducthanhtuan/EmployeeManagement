@@ -1,11 +1,11 @@
 USE [EmployeeDB]
 GO
-/****** Object:  StoredProcedure [dbo].[HardDeleteEmployee]    Script Date: 01-Sep-25 22:16:10 PM ******/
+/****** Object:  StoredProcedure [dbo].[sp_HardDeleteEmployee]    Script Date: 02-Sep-25 13:19:46 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-ALTER PROCEDURE [dbo].[HardDeleteEmployee]
+ALTER PROCEDURE [dbo].[sp_HardDeleteEmployee]
 	@EmployeeId NVARCHAR(450)
 AS
 BEGIN

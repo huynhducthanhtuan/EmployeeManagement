@@ -1,11 +1,11 @@
 USE [EmployeeDB]
 GO
-/****** Object:  StoredProcedure [dbo].[AddEmployee]    Script Date: 01-Sep-25 22:15:02 PM ******/
+/****** Object:  StoredProcedure [dbo].[sp_AddEmployee]    Script Date: 02-Sep-25 13:18:15 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-ALTER PROCEDURE [dbo].[AddEmployee]
+ALTER PROCEDURE [dbo].[sp_AddEmployee]
 	@FullName NVARCHAR(max),
 	@Gender NVARCHAR(max) = 'Other',
 	@DateOfBirth DATETIME2(7),

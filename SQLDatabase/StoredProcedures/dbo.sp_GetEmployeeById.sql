@@ -1,16 +1,16 @@
 USE [EmployeeDB]
 GO
-/****** Object:  StoredProcedure [dbo].[GetAllEmployees]    Script Date: 02-Sep-25 12:59:29 PM ******/
+/****** Object:  StoredProcedure [dbo].[sp_GetEmployeeById]    Script Date: 02-Sep-25 13:19:24 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-ALTER PROCEDURE [dbo].[GetAllEmployees]
-	@IncludeDeleted BIT = 0
+ALTER PROCEDURE [dbo].[sp_GetEmployeeById]
+	@EmployeeId NVARCHAR(450)
 AS
 BEGIN
 	SELECT E.FullName, E.Gender, E.DateOfBirth, E.Hometown, E.AvatarImage, P.PositionName, D.DepartmentName FROM Employees E
 	JOIN Positions P ON P.PositionId = E.PositionId
 	JOIN Departments D ON D.DepartmentId = E.DepartmentId
-	WHERE @IncludeDeleted = 1 OR E.IsDeleted = 0
+	WHERE E.EmployeeId = @EmployeeId
 END

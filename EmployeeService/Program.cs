@@ -14,7 +14,9 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container
 builder.Services.AddScoped<ISqlRepository<Employee>, SqlRepository<Employee>>();
+builder.Services.AddScoped<ISqlRawRepository, SqlRawRepository>();
 builder.Services.AddScoped<IEmployeeService, EmployeeService.Services.EmployeeService>();
+builder.Services.AddScoped<IEmployeeRawService, EmployeeRawService>();
 builder.Services.AddSingleton<IS3Service, S3Service>();
 
 builder.Services.AddAutoMapper(configuration =>

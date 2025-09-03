@@ -1,4 +1,5 @@
-﻿using EmployeeService.Entities;
+﻿using EmployeeService.DTO;
+using EmployeeService.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace EmployeeService.Data
@@ -8,14 +9,19 @@ namespace EmployeeService.Data
         public ApplicationDbContext() {}
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) {}
 
+        /// Entities ///
         public virtual DbSet<Department> Departments { get; set; }
         public virtual DbSet<Employee> Employees { get; set; }
         public virtual DbSet<EmployeeProject> EmployeeProjects { get; set; }
         public virtual DbSet<Position> Positions { get; set; }
         public virtual DbSet<Project> Projects { get; set; }
 
+        /// DTOs ///
+        public virtual DbSet<EmployeeDTO> EmployeeDTO { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            /// Entities ///
             modelBuilder.Entity<Department>(entity =>
             {
                 entity.HasKey(e => e.DepartmentId).HasName("PK__Departme__B2079BED1321BF53");
@@ -91,6 +97,9 @@ namespace EmployeeService.Data
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK__Projects__Depart__1D7B6025");
             });
+
+            /// DTOs ///
+            modelBuilder.Entity<EmployeeDTO>().HasNoKey().ToView(null);
 
             OnModelCreatingPartial(modelBuilder);
         }

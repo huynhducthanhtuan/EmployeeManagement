@@ -21,7 +21,9 @@ builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.Get
 builder.Services.AddControllers();
 
 builder.Services.AddCognitoAuthentication(builder.Configuration);
-builder.Services.AddSwaggerDocumentation(builder.Configuration, "Auth API", "v1");
+builder.Services.AddSwaggerDocumentation(builder.Configuration, "Auth API", "v1"); 
+
+builder.Services.AddHealthChecks();
 
 var app = builder.Build();
 
@@ -43,7 +45,8 @@ app.UseSwaggerUI(c =>
 
 app.UseHttpsRedirection();
 app.UseAuthentication();
-app.UseAuthorization();
+app.UseAuthorization(); 
+app.MapHealthChecks("/health");
 app.MapControllers();
 
 app.Run();

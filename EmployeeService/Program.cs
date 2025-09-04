@@ -37,6 +37,8 @@ builder.Services.AddControllers()
 builder.Services.AddCognitoAuthentication(builder.Configuration);
 builder.Services.AddSwaggerDocumentation(builder.Configuration, "Employee API", "v1");
 
+builder.Services.AddHealthChecks();
+
 var app = builder.Build();
 
 // Configure SwaggerUI
@@ -57,6 +59,7 @@ app.UseSwaggerUI(c =>
 
 app.UseHttpsRedirection();
 app.UseAuthorization();
+app.MapHealthChecks("/health");
 app.MapControllers();
 
 app.Run();

@@ -42,19 +42,20 @@ builder.Services.AddHealthChecks();
 var app = builder.Build();
 
 // Configure SwaggerUI
+app.UsePathBase("/api/employee-service");
 app.UseSwagger(c =>
 {
     c.PreSerializeFilters.Add((swagger, req) =>
     {
         swagger.Servers = new List<OpenApiServer>
         {
-            new OpenApiServer { Url = $"{req.Scheme}://{req.Host.Value}" }
+            new OpenApiServer { Url = $"{req.Scheme}://{req.Host.Value}/api/employee-service" }
         };
     });
 });
 app.UseSwaggerUI(c =>
 {
-    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Employee API v1");
+    c.SwaggerEndpoint("/api/employee-service/swagger/v1/swagger.json", "Employee API v1");
 });
 
 app.UseHttpsRedirection();

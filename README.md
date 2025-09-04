@@ -4,8 +4,8 @@
 
 ## 🔐 AuthService - Auth APIs
 
-- Base URL: [`http://<EC2_PUBLIC_IP>/api/auth-service`](http://<EC2_PUBLIC_IP>/api/auth-service)
-- Swagger UI: [`http://<EC2_PUBLIC_IP>/api/auth-service/swagger/index.html`](http://<EC2_PUBLIC_IP>/api/auth-service/swagger/index.html)
+- Base URL: [`http://lb-employeemanagement-1568128750.ap-southeast-1.elb.amazonaws.com/api/auth-service`](http://lb-employeemanagement-1568128750.ap-southeast-1.elb.amazonaws.com/api/auth-service)
+- Swagger UI: [`http://lb-employeemanagement-1568128750.ap-southeast-1.elb.amazonaws.com/api/auth-service/swagger/index.html`](http://lb-employeemanagement-1568128750.ap-southeast-1.elb.amazonaws.com/api/auth-service/swagger/index.html)
 - Auth Mechanism: AWS Cognito (User Pool, App Client)
 - Infrastructure: AWS EC2
 - Image Registry: Docker Hub [`hdthanhtuan/authservice`](https://hub.docker.com/repository/docker/hdthanhtuan/authservice)
@@ -13,8 +13,8 @@
 
 ## 👥 EmployeeService - Employee APIs
 
-- Base URL: [`http://<EC2_PUBLIC_IP>/api/employee-service`](http://<EC2_PUBLIC_IP>/api/employee-service)
-- Swagger UI: [`http://<EC2_PUBLIC_IP>/api/employee-service/swagger/index.html`](http://<EC2_PUBLIC_IP>/api/employee-service/swagger/index.html)
+- Base URL: [`http://lb-employeemanagement-1568128750.ap-southeast-1.elb.amazonaws.com/api/employee-service`](http://lb-employeemanagement-1568128750.ap-southeast-1.elb.amazonaws.com/api/employee-service)
+- Swagger UI: [`http://lb-employeemanagement-1568128750.ap-southeast-1.elb.amazonaws.com/api/employee-service/swagger/index.html`](http://lb-employeemanagement-1568128750.ap-southeast-1.elb.amazonaws.com/api/employee-service/swagger/index.html)
 - Database: AWS RDS SQL Server
 - Image Storage: AWS S3
 - Infrastructure: AWS EC2

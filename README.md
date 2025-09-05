@@ -161,3 +161,5 @@ Stop docker compose:
 ```bash
 sudo docker-compose down
 ```
+
+Copyright © 2025 Huynh Duc Thanh Tuan. All rights reserved.

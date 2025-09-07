@@ -136,7 +136,7 @@ namespace AuthService.Services
             }
             catch (Exception ex)
             {
-                throw new InvalidOperationException($"Login failed: {ex.Message}.");
+                throw new InvalidOperationException($"Login failed: {ex.Message}");
             }
         }
 

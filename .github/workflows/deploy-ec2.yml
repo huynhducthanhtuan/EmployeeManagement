@@ -26,10 +26,10 @@ jobs:
 
       - name: Stop & remove running docker containers
         run: |
-          sudo docker stop authservice
-          sudo docker stop employeeservice
-          sudo docker rm authservice
-          sudo docker rm employeeservice
+          sudo docker stop authservice || true
+          sudo docker stop employeeservice || true
+          sudo docker rm authservice || true
+          sudo docker rm employeeservice || true
 
       - name: Start new docker containers
         run: |

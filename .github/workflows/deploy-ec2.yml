@@ -33,5 +33,5 @@ jobs:
 
       - name: Start new docker containers
         run: |
-          sudo docker run -d --name authservice --env-file auth-service.env -p 5000:8080 ${{ secrets.DOCKERHUB_USERNAME }}/authservice:latest 
-          sudo docker run -d --name employeeservice --env-file employee-service.env -p 5001:8080 ${{ secrets.DOCKERHUB_USERNAME }}/employeeservice:latest
+          sudo docker run -d --name authservice --env-file ~/EmployeeManagement/auth-service.env -p 5000:8080 ${{ secrets.DOCKERHUB_USERNAME }}/authservice:latest 
+          sudo docker run -d --name employeeservice --env-file ~/EmployeeManagement/employee-service.env -p 5001:8080 ${{ secrets.DOCKERHUB_USERNAME }}/employeeservice:latest

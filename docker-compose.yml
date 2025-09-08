@@ -7,6 +7,8 @@ services:
       dockerfile: Dockerfile
     image: authservice:latest
     container_name: authservice
+    env_file:
+      - ./AuthService/.env
     ports:
       - "5000:8080"
 
@@ -16,5 +18,7 @@ services:
       dockerfile: Dockerfile
     image: employeeservice:latest
     container_name: employeeservice
+    env_file:
+      - ./EmployeeService/.env
     ports:
       - "5001:8080"

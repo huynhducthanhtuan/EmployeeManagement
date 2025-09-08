@@ -6,3 +6,4 @@
 # Ignore files
 appsettings.Development.json
 EmployeeService.csproj.user
+.env

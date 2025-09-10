@@ -28,10 +28,10 @@ jobs:
       - name: Login to AWS ECR
         run: |
           aws ecr get-login-password --region ${{ secrets.AWS_REGION }} \
-            | docker login --username AWS --password-stdin ${{ secrets.ECR_REGISTRY_URL }}
+            | sudo docker login --username AWS --password-stdin ${{ secrets.ECR_REGISTRY_URL }}
 
       - name: Build Docker image
-        run: docker build -t ${{ secrets.ECR_REGISTRY_URL }}/ems/authservice:latest .
+        run: sudo docker build -t ${{ secrets.ECR_REGISTRY_URL }}/ems/authservice:latest .
 
       - name: Push image to AWS ECR repository
-        run: docker push ${{ secrets.ECR_REGISTRY_URL }}/ems/authservice:latest
+        run: sudo docker push ${{ secrets.ECR_REGISTRY_URL }}/ems/authservice:latest

@@ -1,0 +1,43 @@
+name: Manual deploy ECR images to EC2
+
+on:
+  workflow_dispatch:
+    inputs:
+      authservice-image:
+        description: "AuthService ECR image (Ex: sha256:4a8e8f2d6e6e4a6e36b08ef4e0e42f7f8db3f5d62f7e2fbbd84b9c7a1d2c3e4f)"
+        required: true
+        default: ""
+      employeeservice-image:
+        description: "EmployeeService ECR image (Ex: sha256:4a8e8f2d6e6e4a6e36b08ef4e0e42f7f8db3f5d62f7e2fbbd84b9c7a1d2c3e4f)"
+        required: true
+        default: ""
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Pull Docker Hub images
+        run: |
+          sudo docker pull ${{ secrets.ECR_REGISTRY_URL }}/ems/authservice@${{ github.event.inputs.authservice-image }}
+          sudo docker pull ${{ secrets.ECR_REGISTRY_URL }}/ems/employeeservice@${{ github.event.inputs.employeeservice-image }}
+
+      - name: Stop & remove running docker containers
+        run: |
+          sudo docker stop authservice || true
+          sudo docker stop employeeservice || true
+          sudo docker rm authservice || true
+          sudo docker rm employeeservice || true
+
+      - name: Start new docker containers
+        run: |
+          sudo docker run -d \
+            --name authservice \
+            --env-file ~/EmployeeManagement/AuthService/.env \
+            -p 5000:8080 \
+            ${{ secrets.ECR_REGISTRY_URL }}/ems/authservice@${{ github.event.inputs.authservice-image }}
+
+          sudo docker run -d \
+            --name employeeservice \
+            --env-file ~/EmployeeManagement/EmployeeService/.env \
+            -p 5001:8080 \
+            ${{ secrets.ECR_REGISTRY_URL }}/ems/employeeservice@${{ github.event.inputs.employeeservice-image }}

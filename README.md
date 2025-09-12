@@ -10,6 +10,8 @@
 - Infrastructure: AWS EC2
 - Image Registry: Docker Hub [`hdthanhtuan/authservice`](https://hub.docker.com/repository/docker/hdthanhtuan/authservice)
 - Pipeline: [![Build & Push AuthService image to Docker Hub](https://github.com/huynhducthanhtuan/EmployeeManagement/actions/workflows/publish-authservice-dockerhub.yml/badge.svg)](https://github.com/huynhducthanhtuan/EmployeeManagement/actions/workflows/publish-authservice-dockerhub.yml)
+- Image Registry: AWS ECR Repository
+- Pipeline: [![Build & Push AuthService image to AWS ECR repository](https://github.com/huynhducthanhtuan/EmployeeManagement/actions/workflows/publish-authservice-aws-ecr.yml/badge.svg)](https://github.com/huynhducthanhtuan/EmployeeManagement/actions/workflows/publish-authservice-aws-ecr.yml)
 
 ## 👥 EmployeeService - Employee APIs
 
@@ -20,6 +22,8 @@
 - Infrastructure: AWS EC2
 - Image Registry: Docker Hub [`hdthanhtuan/employeeservice`](https://hub.docker.com/repository/docker/hdthanhtuan/employeeservice)
 - Pipeline: [![Build & Push EmployeeService image to Docker Hub](https://github.com/huynhducthanhtuan/EmployeeManagement/actions/workflows/publish-employeeservice-dockerhub.yml/badge.svg)](https://github.com/huynhducthanhtuan/EmployeeManagement/actions/workflows/publish-employeeservice-dockerhub.yml)
+- Image Registry: AWS ECR Repository
+- Pipeline: [![Build & Push EmployeeService image to AWS ECR repository](https://github.com/huynhducthanhtuan/EmployeeManagement/actions/workflows/publish-employeeservice-aws-ecr.yml/badge.svg)](https://github.com/huynhducthanhtuan/EmployeeManagement/actions/workflows/publish-employeeservice-aws-ecr.yml)
 
 ## ⚙️ InfraCore - Infrastructure Commons
 
@@ -27,11 +31,17 @@
 - NuGet package: [`EmployeeManagement.InfraCore`](https://www.nuget.org/packages/EmployeeManagement.InfraCore/)
 - Pipeline: [![Build & Push InfraCore commons to Nuget.org](https://github.com/huynhducthanhtuan/EmployeeManagement/actions/workflows/publish-infracore-nugetorg.yml/badge.svg)](https://github.com/huynhducthanhtuan/EmployeeManagement/actions/workflows/publish-infracore-nugetorg.yml)
 
-## 🚀 Automation Deployment - GitHub Self-Hosted Runner On AWS EC2
+## 🚀 Automation Deployment - Auto Deploy Docker Hub Images
 
 - Runner: GitHub Self-Hosted Runner
 - Infrastructure: AWS EC2
-- Pipeline: [![Deploy services on AWS EC2](https://github.com/huynhducthanhtuan/EmployeeManagement/actions/workflows/deploy-ec2.yml/badge.svg)](https://github.com/huynhducthanhtuan/EmployeeManagement/actions/workflows/deploy-ec2.yml)
+- Pipeline: [![Auto deploy Docker Hub images to AWS EC2](https://github.com/huynhducthanhtuan/EmployeeManagement/actions/workflows/auto-deploy-dockerhub-images-ec2.yml/badge.svg)](https://github.com/huynhducthanhtuan/EmployeeManagement/actions/workflows/auto-deploy-dockerhub-images-ec2.yml)
+
+## 🚀 Manual Deployment - Deploy AWS ECR Images From Workflow Inputs
+
+- Runner: GitHub Self-Hosted Runner
+- Infrastructure: AWS EC2
+- Pipeline: [![Manual deploy AWS ECR images to EC2](https://github.com/huynhducthanhtuan/EmployeeManagement/actions/workflows/manual-deploy-aws-ecr-images-ec2.yml/badge.svg)](https://github.com/huynhducthanhtuan/EmployeeManagement/actions/workflows/manual-deploy-aws-ecr-images-ec2.yml)
 
 ## ⚙️ AWS Setup Instructions
 

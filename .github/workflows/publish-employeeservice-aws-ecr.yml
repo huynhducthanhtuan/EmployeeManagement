@@ -31,7 +31,11 @@ jobs:
             | sudo docker login --username AWS --password-stdin ${{ secrets.ECR_REGISTRY_URL }}
 
       - name: Build Docker image
-        run: sudo docker build -t ${{ secrets.ECR_REGISTRY_URL }}/ems/employeeservice:latest .
+        run: |
+          sudo docker build -t ${{ secrets.ECR_REGISTRY_URL }}/ems/employeeservice:latest . \
+                            -t ${{ secrets.ECR_REGISTRY_URL }}/ems/employeeservice:${{ github.sha }}
 
       - name: Push image to AWS ECR repository
-        run: sudo docker push ${{ secrets.ECR_REGISTRY_URL }}/ems/employeeservice:latest
+        run: |
+          sudo docker push ${{ secrets.ECR_REGISTRY_URL }}/ems/employeeservice:latest
+          sudo docker push ${{ secrets.ECR_REGISTRY_URL }}/ems/employeeservice:${{ github.sha }}

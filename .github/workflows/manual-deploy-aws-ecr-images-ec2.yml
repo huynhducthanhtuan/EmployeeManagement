@@ -16,6 +16,11 @@ jobs:
   manual-deploy-aws-ecr-images-ec2:
     runs-on: self-hosted
     steps:
+      - name: Login to AWS ECR
+        run: |
+          aws ecr get-login-password --region ${{ secrets.AWS_REGION }} \
+            | sudo docker login --username AWS --password-stdin ${{ secrets.ECR_REGISTRY_URL }}
+            
       - name: Pull Docker Hub images
         run: |
           sudo docker pull ${{ secrets.ECR_REGISTRY_URL }}/ems/authservice:${{ github.event.inputs.authservice-image-tag }}

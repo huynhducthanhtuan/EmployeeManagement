@@ -1,4 +1,4 @@
-name: Deploy services on AWS EC2
+name: Auto deploy services on AWS EC2
 
 on:
   workflow_run: # Only trigger this workflow if these workflows are completed & success
@@ -11,7 +11,7 @@ on:
       - completed
 
 jobs:
-  deploy-ec2:
+  auto-deploy-ec2:
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: self-hosted
 

@@ -13,8 +13,8 @@ on:
         default: ""
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
+  manual-deploy-aws-ecr-images-ec2:
+    runs-on: self-hosted
     steps:
       - name: Pull Docker Hub images
         run: |

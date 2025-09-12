@@ -23,8 +23,6 @@ jobs:
         run: |
           sudo docker pull ${{ secrets.DOCKERHUB_USERNAME }}/authservice:latest
           sudo docker pull ${{ secrets.DOCKERHUB_USERNAME }}/employeeservice:latest
-          # sudo docker pull ${{ secrets.ECR_REGISTRY_URL }}/ems/authservice:latest
-          # sudo docker pull ${{ secrets.ECR_REGISTRY_URL }}/ems/employeeservice:latest
 
       - name: Stop & remove running docker containers
         run: |
@@ -46,15 +44,3 @@ jobs:
             --env-file ~/EmployeeManagement/EmployeeService/.env \
             -p 5001:8080 \
             ${{ secrets.DOCKERHUB_USERNAME }}/employeeservice:latest
-
-          # sudo docker run -d \
-          #   --name authservice \
-          #   --env-file ~/EmployeeManagement/AuthService/.env \
-          #   -p 5000:8080 \
-          #   ${{ secrets.ECR_REGISTRY_URL }}/ems/authservice:latest 
-
-          # sudo docker run -d \
-          #   --name employeeservice \
-          #   --env-file ~/EmployeeManagement/EmployeeService/.env \
-          #   -p 5001:8080 \
-          #   ${{ secrets.ECR_REGISTRY_URL }}/ems/employeeservice:latest

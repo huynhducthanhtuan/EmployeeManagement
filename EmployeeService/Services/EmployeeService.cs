@@ -42,7 +42,7 @@ namespace EmployeeService.Services
             var existingEntity = await _employeeRepository.GetItemAsync(request.Id);
             if (existingEntity != null)
             {
-                // Map request.Employee into existingEntity
+                // Map request.Employee into existingEntity.
                 var updateEntity = _mapper.Map(request.Employee, existingEntity);
                 await _employeeRepository.UpdateItemAsync(existingEntity.EmployeeId, updateEntity);
                 return true;

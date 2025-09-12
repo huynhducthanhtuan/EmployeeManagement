@@ -3,12 +3,12 @@ name: Manual deploy AWS ECR images to EC2
 on:
   workflow_dispatch:
     inputs:
-      authservice-image:
-        description: "AuthService ECR image (Ex: sha256:4a8e8f2d6e6e4a6e36b08ef4e0e42f7f8db3f5d62f7e2fbbd84b9c7a1d2c3e4f)"
+      authservice-image-tag:
+        description: "AuthService ECR image tag (Ex: 689f6b98f81ecad9532698815495fc81440501b1)"
         required: true
         default: ""
-      employeeservice-image:
-        description: "EmployeeService ECR image (Ex: sha256:4a8e8f2d6e6e4a6e36b08ef4e0e42f7f8db3f5d62f7e2fbbd84b9c7a1d2c3e4f)"
+      employeeservice-image-tag:
+        description: "EmployeeService ECR image tag (Ex: 689f6b98f81ecad9532698815495fc81440501b1)"
         required: true
         default: ""
 
@@ -18,8 +18,8 @@ jobs:
     steps:
       - name: Pull Docker Hub images
         run: |
-          sudo docker pull ${{ secrets.ECR_REGISTRY_URL }}/ems/authservice@${{ github.event.inputs.authservice-image }}
-          sudo docker pull ${{ secrets.ECR_REGISTRY_URL }}/ems/employeeservice@${{ github.event.inputs.employeeservice-image }}
+          sudo docker pull ${{ secrets.ECR_REGISTRY_URL }}/ems/authservice:${{ github.event.inputs.authservice-image-tag }}
+          sudo docker pull ${{ secrets.ECR_REGISTRY_URL }}/ems/employeeservice:${{ github.event.inputs.employeeservice-image-tag }}
 
       - name: Stop & remove running docker containers
         run: |
@@ -34,10 +34,10 @@ jobs:
             --name authservice \
             --env-file ~/EmployeeManagement/AuthService/.env \
             -p 5000:8080 \
-            ${{ secrets.ECR_REGISTRY_URL }}/ems/authservice@${{ github.event.inputs.authservice-image }}
+            ${{ secrets.ECR_REGISTRY_URL }}/ems/authservice:${{ github.event.inputs.authservice-image-tag }}
 
           sudo docker run -d \
             --name employeeservice \
             --env-file ~/EmployeeManagement/EmployeeService/.env \
             -p 5001:8080 \
-            ${{ secrets.ECR_REGISTRY_URL }}/ems/employeeservice@${{ github.event.inputs.employeeservice-image }}
+            ${{ secrets.ECR_REGISTRY_URL }}/ems/employeeservice:${{ github.event.inputs.employeeservice-image-tag }}

@@ -1,0 +1,22 @@
+name: Manual deploy images to EC2
+
+on:
+  workflow_dispatch:
+    inputs:
+      authservice-image:
+        description: "AuthService image (Ex: sha256:4a8e8f2d6e6e4a6e36b08ef4e0e42f7f8db3f5d62f7e2fbbd84b9c7a1d2c3e4f)"
+        required: false
+        default: ""
+      employeeservice-image:
+        description: "EmployeeService image (Ex: sha256:4a8e8f2d6e6e4a6e36b08ef4e0e42f7f8db3f5d62f7e2fbbd84b9c7a1d2c3e4f)"
+        required: false
+        default: ""
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print inputs
+        run: |
+          echo "AuthService image: ${{ github.event.inputs.authservice-image }}"
+          echo "EmployeeService image: ${{ github.event.inputs.employeeservice-image }}"

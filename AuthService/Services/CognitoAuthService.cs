@@ -147,7 +147,7 @@ namespace AuthService.Services
 
             do
             {
-                // Fetch each 60 users for each batch. Until PaginationToken = null then stop.
+                // Fetch each 60 users for each batch. Until PaginationToken = null then stop
                 var response = await _cognitoAdmin.ListUsersAsync(new ListUsersRequest
                 {
                     UserPoolId = _cognitoOptions.UserPoolId,

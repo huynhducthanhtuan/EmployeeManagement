@@ -32,8 +32,8 @@ jobs:
 
       - name: Build Docker image
         run: |
-          sudo docker build -t ${{ secrets.ECR_REGISTRY_URL }}/ems/authservice:latest . \
-                            -t ${{ secrets.ECR_REGISTRY_URL }}/ems/authservice:${{ github.sha }}
+          sudo docker build -t ${{ secrets.ECR_REGISTRY_URL }}/ems/authservice:latest \
+                            -t ${{ secrets.ECR_REGISTRY_URL }}/ems/authservice:${{ github.sha }} .
 
       - name: Push image to AWS ECR repository
         run: |

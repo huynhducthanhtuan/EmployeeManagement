@@ -12,6 +12,7 @@
 - Pipeline: [![Build & Push AuthService image to Docker Hub](https://github.com/huynhducthanhtuan/EmployeeManagement/actions/workflows/publish-authservice-dockerhub.yml/badge.svg)](https://github.com/huynhducthanhtuan/EmployeeManagement/actions/workflows/publish-authservice-dockerhub.yml)
 - Image Registry: AWS ECR Repository
 - Pipeline: [![Build & Push AuthService image to AWS ECR repository](https://github.com/huynhducthanhtuan/EmployeeManagement/actions/workflows/publish-authservice-aws-ecr.yml/badge.svg)](https://github.com/huynhducthanhtuan/EmployeeManagement/actions/workflows/publish-authservice-aws-ecr.yml)
+<img width="1601" height="742" alt="image" src="https://github.com/user-attachments/assets/734d5a9c-ab77-4a81-b785-da63b28de85e" />
 
 ## 👥 EmployeeService - Employee APIs
 
@@ -24,6 +25,7 @@
 - Pipeline: [![Build & Push EmployeeService image to Docker Hub](https://github.com/huynhducthanhtuan/EmployeeManagement/actions/workflows/publish-employeeservice-dockerhub.yml/badge.svg)](https://github.com/huynhducthanhtuan/EmployeeManagement/actions/workflows/publish-employeeservice-dockerhub.yml)
 - Image Registry: AWS ECR Repository
 - Pipeline: [![Build & Push EmployeeService image to AWS ECR repository](https://github.com/huynhducthanhtuan/EmployeeManagement/actions/workflows/publish-employeeservice-aws-ecr.yml/badge.svg)](https://github.com/huynhducthanhtuan/EmployeeManagement/actions/workflows/publish-employeeservice-aws-ecr.yml)
+<img width="1587" height="790" alt="image" src="https://github.com/user-attachments/assets/f1002674-ca9c-4003-a5d9-8ea6b93aca52" />
 
 ## ⚙️ InfraCore - Infrastructure Commons
 

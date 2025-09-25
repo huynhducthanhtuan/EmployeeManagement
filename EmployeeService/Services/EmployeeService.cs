@@ -11,17 +11,29 @@ namespace EmployeeService.Services
     {
         private readonly ISqlRepository<Employee> _employeeRepository;
         private readonly IMapper _mapper;
+        private readonly IS3Service _s3Service;
 
-        public EmployeeService(ISqlRepository<Employee> employeeRepository, IMapper mapper)
+        public EmployeeService(ISqlRepository<Employee> employeeRepository, IMapper mapper, IS3Service s3Service)
         {
             _employeeRepository = employeeRepository;
             _mapper = mapper;
+            _s3Service = s3Service;
         }
 
         public async Task<List<EmployeeDTO>> GetAllEmployees()
         {
             var employees = await _employeeRepository.GetItemsAsync(x => x != null);
-            return _mapper.Map<List<EmployeeDTO>>(employees);
+            return employees.Select(x => new EmployeeDTO()
+            {
+                FullName = x.FullName,
+                Gender = x.Gender,
+                DateOfBirth = x.DateOfBirth,
+                Hometown = x.Hometown,
+                AvatarImage = x.AvatarImage != null ? _s3Service.GetPreSignedUrl(x.AvatarImage) : null,
+                DepartmentName = x.Department?.DepartmentName ?? "",
+                PositionName = x.Position?.PositionName ?? ""
+            }).ToList();
+            //return _mapper.Map<List<EmployeeDTO>>(employees);
         }
 
         public async Task<EmployeeDTO> GetEmployeeById(GetEmployeeByIdQuery request)

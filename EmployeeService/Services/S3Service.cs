@@ -1,5 +1,6 @@
 ﻿using Amazon;
 using Amazon.S3;
+using Amazon.S3.Model;
 using Amazon.S3.Transfer;
 using EmployeeService.Interfaces;
 
@@ -13,13 +14,17 @@ namespace EmployeeService.Services
 
         public S3Service(IConfiguration configuration)
         {
-            _s3Client = new AmazonS3Client(
-                configuration["AWS:AccessKey"],
-                configuration["AWS:SecretKey"],
-                RegionEndpoint.APSoutheast1
-            );
-            _bucketName = configuration["S3:BucketName"];
-            _bucketFolder = configuration["S3:BucketFolder"];
+            // Create S3 instance with AccessKey & SecretKey
+            //_s3Client = new AmazonS3Client(
+            //    configuration["AWS:AccessKey"],
+            //    configuration["AWS:SecretKey"],
+            //    RegionEndpoint.APSoutheast1
+            //);
+            //_bucketName = configuration["S3:BucketName"];
+            //_bucketFolder = configuration["S3:BucketFolder"];
+
+            // Create S3 instance with AccessKey & SecretKey are retrieve from role attach with EC2
+            _s3Client = new AmazonS3Client(RegionEndpoint.APSoutheast1);
         }
 
         public async Task<string> UploadFileAsync(IFormFile file)
@@ -42,6 +47,17 @@ namespace EmployeeService.Services
 
             var imageURL = $"https://{_bucketName}.s3.ap-southeast-1.amazonaws.com/{fileName}";
             return imageURL;
+        }
+
+        public string GetPreSignedUrl(string key, int expireMinutes = 10) 
+        { 
+            var request = new GetPreSignedUrlRequest { 
+                BucketName = _bucketName, 
+                Key = key, 
+                Expires = DateTime.UtcNow.AddMinutes(expireMinutes)
+            }; 
+            var presignedUrl = _s3Client.GetPreSignedURL(request);
+            return presignedUrl;
         }
     }
 }

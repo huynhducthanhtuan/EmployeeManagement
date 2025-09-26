@@ -20,8 +20,8 @@ namespace EmployeeService.Services
             //    configuration["AWS:SecretKey"],
             //    RegionEndpoint.APSoutheast1
             //);
-            //_bucketName = configuration["S3:BucketName"];
-            //_bucketFolder = configuration["S3:BucketFolder"];
+            _bucketName = configuration["S3:BucketName"];
+            _bucketFolder = configuration["S3:BucketFolder"];
 
             // Create S3 instance with AccessKey & SecretKey are retrieve from role attach with EC2
             _s3Client = new AmazonS3Client(RegionEndpoint.APSoutheast1);

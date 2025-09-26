@@ -25,11 +25,11 @@ namespace EmployeeService.Services
             //var employees = await _employeeRepository.GetItemsAsync(x => x != null);
             var employees = new List<Employee>()
             {
-                new Employee(){ AvatarImage = "duchoa.svg" },
-                new Employee(){ AvatarImage = "thanhtuan.svg" },
-                new Employee(){ AvatarImage = "thanhhau.svg" },
-                new Employee(){ AvatarImage = "vandat.svg" },
-                new Employee(){ AvatarImage = "thihoa.svg" }
+                new Employee(){ AvatarImage = "images/duchoa.svg" },
+                new Employee(){ AvatarImage = "images/thanhtuan.svg" },
+                new Employee(){ AvatarImage = "images/thanhhau.svg" },
+                new Employee(){ AvatarImage = "images/vandat.svg" },
+                new Employee(){ AvatarImage = "images/thihoa.svg" }
             };
             return employees.Select(x => new EmployeeDTO()
             {

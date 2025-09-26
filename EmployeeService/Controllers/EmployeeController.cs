@@ -24,7 +24,7 @@ namespace EmployeeService.Controllers
         }
 
         [HttpGet("All")]
-        [MultiAuthorize(RoleConstants.Manager, RoleConstants.Admin)]
+        //[MultiAuthorize(RoleConstants.Manager, RoleConstants.Admin)]
         public async Task<IActionResult> GetAllEmployees()
         {
             try

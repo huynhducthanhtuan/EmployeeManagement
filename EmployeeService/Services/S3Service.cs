@@ -1,4 +1,5 @@
 ﻿using Amazon;
+using Amazon.Runtime;
 using Amazon.S3;
 using Amazon.S3.Model;
 using Amazon.S3.Transfer;
@@ -29,7 +30,8 @@ namespace EmployeeService.Services
             else
             {
                 // Create S3 instance with AccessKey & SecretKey are retrieve from role attach with EC2
-                _s3Client = new AmazonS3Client(RegionEndpoint.APSoutheast1);
+                var credentials = new InstanceProfileAWSCredentials();
+                _s3Client = new AmazonS3Client(credentials, RegionEndpoint.APSoutheast1);
             }
         }
 

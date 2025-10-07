@@ -23,12 +23,6 @@ namespace EmployeeService.Controllers
             _mediator = mediator;
         }
 
-        [HttpGet("GetEnvironment")]
-        public async Task<IActionResult> GetEnvironment()
-        {
-            return Ok(Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT"));
-        }
-
         [HttpGet("All")]
         //[MultiAuthorize(RoleConstants.Manager, RoleConstants.Admin)]
         public async Task<IActionResult> GetAllEmployees()

@@ -2,6 +2,7 @@ using System.ComponentModel.DataAnnotations;
 using EmployeeService.Commands;
 using EmployeeService.DTO;
 using EmployeeService.Queries;
+using EmployeeService.Services;
 using InfraCore.Commons.Attributes;
 using InfraCore.Commons.Constants;
 using MediatR;
@@ -16,15 +17,37 @@ namespace EmployeeService.Controllers
     {
         private readonly ILogger<EmployeeController> _logger;
         private readonly IMediator _mediator;
+        private readonly IConfiguration _configuration;
 
-        public EmployeeController(ILogger<EmployeeController> logger, IMediator mediator)
+        public EmployeeController(ILogger<EmployeeController> logger, IMediator mediator, IConfiguration configuration)
         {
             _logger = logger;
             _mediator = mediator;
+            _configuration = configuration;
+        }
+
+        [HttpGet("TestS3Config")]
+        public async Task<IActionResult> TestS3Config()
+        {
+            try
+            {
+                var s3Service = new S3Service(_configuration);
+                var config = new
+                {
+                    AccessKey = s3Service.AccessKey,
+                    SecretKey = s3Service.SecretKey,
+                    Token = s3Service.Token,
+                };
+                return Ok(config);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpGet("All")]
-        //[MultiAuthorize(RoleConstants.Manager, RoleConstants.Admin)]
+        [MultiAuthorize(RoleConstants.Manager, RoleConstants.Admin)]
         public async Task<IActionResult> GetAllEmployees()
         {
             try

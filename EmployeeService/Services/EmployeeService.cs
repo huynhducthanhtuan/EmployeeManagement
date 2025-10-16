@@ -22,26 +22,8 @@ namespace EmployeeService.Services
 
         public async Task<List<EmployeeDTO>> GetAllEmployees()
         {
-            //var employees = await _employeeRepository.GetItemsAsync(x => x != null);
-            var employees = new List<Employee>()
-            {
-                new Employee(){ AvatarImage = "images/duchoa.svg" },
-                new Employee(){ AvatarImage = "images/thanhtuan.svg" },
-                new Employee(){ AvatarImage = "images/thanhhau.svg" },
-                new Employee(){ AvatarImage = "images/vandat.svg" },
-                new Employee(){ AvatarImage = "images/thihoa.svg" }
-            };
-            return employees.Select(x => new EmployeeDTO()
-            {
-                FullName = x.FullName,
-                Gender = x.Gender,
-                DateOfBirth = x.DateOfBirth,
-                Hometown = x.Hometown,
-                AvatarImage = x.AvatarImage != null ? _s3Service.GetPreSignedUrl(x.AvatarImage) : null,
-                DepartmentName = x.Department?.DepartmentName ?? "",
-                PositionName = x.Position?.PositionName ?? ""
-            }).ToList();
-            //return _mapper.Map<List<EmployeeDTO>>(employees);
+            var employees = await _employeeRepository.GetItemsAsync(x => x != null);
+            return _mapper.Map<List<EmployeeDTO>>(employees);
         }
 
         public async Task<EmployeeDTO> GetEmployeeById(GetEmployeeByIdQuery request)

@@ -1,5 +1,5 @@
 ﻿using Amazon;
-using Amazon.Runtime;
+using Amazon.Runtime.CredentialManagement;
 using Amazon.S3;
 using Amazon.S3.Model;
 using Amazon.S3.Transfer;
@@ -12,6 +12,9 @@ namespace EmployeeService.Services
         private readonly IAmazonS3 _s3Client;
         private readonly string _bucketName;
         private readonly string _bucketFolder;
+        public string AccessKey;
+        public string SecretKey;
+        public string Token;
 
         public S3Service(IConfiguration configuration)
         {
@@ -29,9 +32,18 @@ namespace EmployeeService.Services
             }
             else
             {
-                // Create S3 instance with AccessKey & SecretKey are retrieve from role attach with EC2
-                var credentials = new InstanceProfileAWSCredentials();
-                _s3Client = new AmazonS3Client(credentials, RegionEndpoint.APSoutheast1);
+                // Create S3 instance with AccessKey & SecretKey are retrieve from /root/.aws/credentials file
+                var chain = new CredentialProfileStoreChain();
+                if (!chain.TryGetAWSCredentials("default", out var creds))
+                    throw new Exception("Notfound profile [default] in ~/.aws/credentials");
+
+                var immutableCreds = creds.GetCredentials();
+
+                AccessKey = immutableCreds.AccessKey;
+                SecretKey = immutableCreds.SecretKey;
+                Token = immutableCreds.Token;
+
+                _s3Client = new AmazonS3Client(creds, RegionEndpoint.APSoutheast1);
             }
         }
 
